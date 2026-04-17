@@ -14,14 +14,15 @@ import valid
 from cenet_model import CENET
 from core import TKGDataset, Trainer, OracleTrainer, Logger
 
-# Seed for reproducibility
-seed = 987
-np.random.seed(seed)
-torch.manual_seed(seed)
-
 
 def main_portal(args, config_default_path=None, config_dataset_path=None):
     """Main training pipeline."""
+    # Set seed for reproducibility from config (if enabled)
+    if hasattr(args, 'use_seed') and args.use_seed:
+        seed = args.seed if hasattr(args, 'seed') else 987
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+    
     # Load dataset
     dataset = TKGDataset(args.dataset)
     num_nodes, num_rels, num_t = dataset.num_nodes, dataset.num_rels, dataset.num_t

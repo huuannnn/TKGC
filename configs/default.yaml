@@ -3,6 +3,8 @@
 # System arguments
 gpu_id: "0"
 use_cuda: true
+use_seed: true
+seed: 987
 
 # Training arguments
 batch_size: 1024
