@@ -1,0 +1,4 @@
+# GDELT Dataset Configuration (inherits defaults)
+
+dataset: GDELT
+description: gdelt_default

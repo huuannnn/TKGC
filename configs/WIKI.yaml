@@ -1,0 +1,4 @@
+# WIKI Dataset Configuration (inherits defaults)
+
+dataset: WIKI
+description: wiki_default

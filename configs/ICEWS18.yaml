@@ -1,0 +1,4 @@
+# ICEWS18 Dataset Configuration (inherits defaults)
+
+dataset: ICEWS18
+description: icews18_default
