@@ -31,19 +31,12 @@ class OracleTrainer:
         self.logger.write("Starting Oracle training...")
     
     def _prepare_batch(self, batch_data):
-        """Prepare batch data for model."""
-        batch_data[0] = torch.from_numpy(batch_data[0])
-        batch_data[3] = torch.from_numpy(batch_data[3]).float()
-        batch_data[4] = torch.from_numpy(batch_data[4]).float()
-        batch_data[5] = torch.from_numpy(batch_data[5]).float()
-        batch_data[6] = torch.from_numpy(batch_data[6]).float()
-        
         if self.use_cuda:
-            batch_data[0] = batch_data[0].cuda()
-            batch_data[3] = batch_data[3].cuda()
-            batch_data[4] = batch_data[4].cuda()
-            batch_data[5] = batch_data[5].cuda()
-            batch_data[6] = batch_data[6].cuda()
+            batch_data[0] = batch_data[0].to(self.args.device)
+            batch_data[3] = batch_data[3].to(self.args.device)
+            batch_data[4] = batch_data[4].to(self.args.device)
+            batch_data[5] = batch_data[5].to(self.args.device)
+            batch_data[6] = batch_data[6].to(self.args.device)
         
         return batch_data
     
@@ -69,8 +62,7 @@ class OracleTrainer:
                 self.dataset.train_o_label,
                 self.dataset.train_s_frequency,
                 self.dataset.train_o_frequency,
-                self.args.batch_size,
-                model=self.model
+                self.args.batch_size
             )
             
             # Oracle training batches with progress bar
@@ -78,6 +70,8 @@ class OracleTrainer:
                        desc=f"Oracle Epoch {oracle_epoch}", unit='batch')
             
             for batch_idx, batch_data in pbar:
+                # Move batch data to device
+                batch_data = self._prepare_batch(batch_data)
                 loss = self.model(batch_data, 'Oracle')
                 if loss is None:
                     continue

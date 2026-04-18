@@ -91,7 +91,7 @@ class TKGDataLoader:
     """Custom DataLoader for TKG dataset with complex batch structure."""
     
     def __init__(self, quadruples, s_history, o_history, s_label, o_label, 
-                 s_frequency, o_frequency, batch_size, model=None):
+                 s_frequency, o_frequency, batch_size):
         self.quadruples = quadruples
         self.s_history = s_history
         self.o_history = o_history
@@ -102,28 +102,19 @@ class TKGDataLoader:
         self.batch_size = batch_size
         self.num_samples = len(quadruples)
         self.num_batches = (self.num_samples + batch_size - 1) // batch_size
-        self.model = model
-    
-    @property
-    def device(self):
-        """Automatically detect device from model."""
-        if self.model is not None:
-            return next(self.model.parameters()).device
-        return torch.device('cpu')
     
     def __iter__(self):
-        """Iterate over batches with automatic device placement."""
-        device = self.device
+        """Iterate over batches without device placement (responsibility of main training loop)."""
         for i in range(0, self.num_samples, self.batch_size):
             end_idx = min(i + self.batch_size, self.num_samples)
             yield [
-                torch.from_numpy(self.quadruples[i:end_idx]).to(device),
+                torch.from_numpy(self.quadruples[i:end_idx]),
                 self.s_history[i:end_idx],
                 self.o_history[i:end_idx],
-                torch.from_numpy(self.s_label[i:end_idx]).float().to(device),
-                torch.from_numpy(self.o_label[i:end_idx]).float().to(device),
-                torch.from_numpy(self.s_frequency[i:end_idx]).float().to(device),
-                torch.from_numpy(self.o_frequency[i:end_idx]).float().to(device)
+                torch.from_numpy(self.s_label[i:end_idx]).float(),
+                torch.from_numpy(self.o_label[i:end_idx]).float(),
+                torch.from_numpy(self.s_frequency[i:end_idx]).float(),
+                torch.from_numpy(self.o_frequency[i:end_idx]).float()
             ]
     
     def __len__(self):

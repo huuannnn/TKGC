@@ -33,12 +33,22 @@ def execute_test(args, total_data, model,
     test_loader = TKGDataLoader(data, s_history, o_history, 
                                 s_label, o_label, 
                                 s_frequency, o_frequency, 
-                                args.batch_size,
-                                model=model)
+                                args.batch_size)
     
     # Testing with progress bar
     pbar = tqdm(test_loader, desc="Testing", unit='batch')
     for batch_data in pbar:
+        # Move batch data to device
+        batch_data = [
+            batch_data[0].to(device),  # quadruples
+            batch_data[1],  # s_history
+            batch_data[2],  # o_history
+            batch_data[3].to(device),  # s_label
+            batch_data[4].to(device),  # o_label
+            batch_data[5].to(device),  # s_frequency
+            batch_data[6].to(device)   # o_frequency
+        ]
+        
         with torch.no_grad():
             sub_rank1, obj_rank1, cur_loss1, \
             sub_rank2, obj_rank2, cur_loss2, \

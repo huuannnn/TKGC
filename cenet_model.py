@@ -4,42 +4,18 @@ import torch.nn.functional as F
 import numpy as np
 
 from utils import *
-import math
 import copy
 
-"""
 class Oracle(nn.Module):
     def __init__(self, input_dim, out_dim):
         super(Oracle, self).__init__()
-        self.linear = nn.Sequential(nn.Linear(input_dim, 2 * input_dim),
-                                    nn.Dropout(0.2),
-                                    nn.LeakyReLU(0.2),
-                                    nn.Linear(2 * input_dim, 2 * input_dim),
-                                    nn.Dropout(0.2),
-                                    nn.LeakyReLU(0.2),
-                                    nn.Linear(2 * input_dim, 2 * input_dim),
-                                    nn.Dropout(0.2),
-                                    nn.LeakyReLU(0.2),
-                                    nn.Linear(2 * input_dim, input_dim),
-                                    nn.Dropout(0.2),
-                                    nn.LeakyReLU(0.2),
-                                    nn.Linear(input_dim, out_dim),
-                                    )
-
-    def forward(self, x):
-        return self.linear(x)
-"""
-
-
-class Oracle(nn.Module):
-    def __init__(self, input_dim, out_dim):
-        super(Oracle, self).__init__()
-        self.linear = nn.Sequential(nn.Linear(input_dim, input_dim),
-                                    nn.BatchNorm1d(input_dim),
-                                    nn.Dropout(0.4),
-                                    nn.LeakyReLU(0.2),
-                                    nn.Linear(input_dim, out_dim),
-                                    )
+        self.linear = nn.Sequential(
+            nn.Linear(input_dim, input_dim),
+            nn.BatchNorm1d(input_dim),
+            nn.Dropout(0.4),
+            nn.LeakyReLU(0.2),
+            nn.Linear(input_dim, out_dim)
+        )
 
     def forward(self, x):
         return self.linear(x)
@@ -57,16 +33,13 @@ class CENET(nn.Module):
 
         # entity relation embedding
         self.rel_embeds = nn.Parameter(torch.zeros(2 * num_rel, args.embedding_dim))
-        nn.init.xavier_uniform_(self.rel_embeds, gain=nn.init.calculate_gain('relu'))
         self.entity_embeds = nn.Parameter(torch.zeros(self.num_e, args.embedding_dim))
-        nn.init.xavier_uniform_(self.entity_embeds, gain=nn.init.calculate_gain('relu'))
 
         self.linear_frequency = nn.Linear(self.num_e, args.embedding_dim)
 
         self.contrastive_hidden_layer = nn.Linear(3 * args.embedding_dim, args.embedding_dim)
         self.contrastive_output_layer = nn.Linear(args.embedding_dim, args.embedding_dim)
         self.oracle_layer = Oracle(3 * args.embedding_dim, 1)
-        self.oracle_layer.apply(self.weights_init)
 
         self.linear_pred_layer_s1 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
         self.linear_pred_layer_o1 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
@@ -74,21 +47,8 @@ class CENET(nn.Module):
         self.linear_pred_layer_s2 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
         self.linear_pred_layer_o2 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
 
-        self.weights_init(self.linear_frequency)
-        self.weights_init(self.linear_pred_layer_s1)
-        self.weights_init(self.linear_pred_layer_o1)
-        self.weights_init(self.linear_pred_layer_s2)
-        self.weights_init(self.linear_pred_layer_o2)
-
-        """
-        pe = torch.zeros(400, 3 * args.embedding_dim)
-        position = torch.arange(0, 400, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(
-            torch.arange(0, 3 * args.embedding_dim, 2).float() * (-math.log(10000.0) / (3 * args.embedding_dim)))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
-        self.register_buffer('pe', pe)
-        """
+        # Initialize weights and embeddings
+        self.reset_parameters()
 
         self.dropout = nn.Dropout(args.dropout)
         self.logSoftmax = nn.LogSoftmax()
@@ -99,7 +59,21 @@ class CENET(nn.Module):
         self.crossEntropy = nn.BCELoss()
         self.oracle_mode = args.oracle_mode
 
-        # print('CENET Initiated')
+    def reset_parameters(self):
+        """Initialize all parameters and embeddings using Xavier uniform distribution."""
+        gain = nn.init.calculate_gain('relu')
+        
+        # Initialize embeddings
+        nn.init.xavier_uniform_(self.rel_embeds, gain=gain)
+        nn.init.xavier_uniform_(self.entity_embeds, gain=gain)
+        
+        # Initialize layers
+        self.weights_init(self.linear_frequency)
+        self.weights_init(self.linear_pred_layer_s1)
+        self.weights_init(self.linear_pred_layer_o1)
+        self.weights_init(self.linear_pred_layer_s2)
+        self.weights_init(self.linear_pred_layer_o2)
+        self.oracle_layer.apply(self.weights_init)
 
     @staticmethod
     def weights_init(m):
@@ -111,22 +85,16 @@ class CENET(nn.Module):
         s_history_label_true, o_history_label_true, s_frequency, o_frequency = batch_block
 
         if isListEmpty(s_history_event_o) or isListEmpty(o_history_event_s):
-            sub_rank, obj_rank, batch_loss = [None] * 3
             if mode_lk == 'Training':
-                return batch_loss
+                return None
             elif mode_lk in ['Valid', 'Test']:
-                return sub_rank, batch_loss
+                return None, None
             else:
                 return None
 
         s = quadruples[:, 0]
         r = quadruples[:, 1]
         o = quadruples[:, 2]
-
-        """
-        t = (quadruples[:, 3] / 24.0).long()
-        time_embedding = self.pe[t]
-        """
 
         s_history_tag = copy.deepcopy(s_frequency)
         o_history_tag = copy.deepcopy(o_frequency)
@@ -297,17 +265,9 @@ class CENET(nn.Module):
 
     def link_predict(self, nce_loss, preds, ce_loss, actor1, actor2, r, trust_musk, all_triples, pred_known, oracle,
                      history_tag=None, case_study=False):
-        if case_study:
-            # f = open("case_study.txt", "a+")
-            # entity2id, relation2id = get_entity_relation_set(self.args.dataset)
-            pass
-
         if oracle:
             preds = torch.mul(preds, trust_musk)
-            # print('$Batch After Oracle accuracy:', end=' ')
-        else:
-            # print('$Batch No Oracle accuracy:', end=' ')
-            pass
+
         # compute the correct triples
         pred_actor2 = torch.argmax(preds, dim=1)  # predicted result
         correct = torch.sum(torch.eq(pred_actor2, actor2))
@@ -325,13 +285,6 @@ class CENET(nn.Module):
             if case_study:
                 in_history = torch.where(history_tag[i] > 0)[0]
                 not_in_history = torch.where(history_tag[i] < 0)[0]
-                # print('---------------------------', file=f)
-                # for hh in range(in_history.shape[0]):
-                #     print('his:', entity2id[in_history[hh].item()], file=f)
-                #
-                # print(pred_known,
-                #       'Truth:', entity2id[cur_s.item()], '--', relation2id[cur_r.item()], '--', entity2id[cur_o.item()],
-                #       'Prediction:', entity2id[pred_actor2[i].item()], file=f)
 
             o_label = cur_o
             ground = preds[i, cur_o].clone().item()
@@ -378,23 +331,13 @@ class CENET(nn.Module):
         self.contrastive_output_layer.requires_grad_(False)
 
     def contrastive_layer(self, x):
-        # Implement from the encoder E to the projection network P
-        # x = F.normalize(x, dim=1)
         x = self.contrastive_hidden_layer(x)
-        # x = F.relu(x)
-        # x = self.contrastive_output_layer(x)
-        # Normalize to unit hypersphere
-        # x = F.normalize(x, dim=1)
         return x
 
     def calculate_spc_loss(self, actor1, r, rel_embeds, targets, frequency_hidden):
         projections = self.contrastive_layer(
             torch.cat((self.entity_embeds[actor1], rel_embeds[r], frequency_hidden), dim=1))
         targets = torch.squeeze(targets)
-        """if np.random.randint(0, 10) < 1 and torch.sum(targets) / targets.shape[0] < 0.65 and torch.sum(targets) / targets.shape[0] > 0.35:
-            np.savetxt("xx.tsv", projections.detach().cpu().numpy(), delimiter="\t")
-            np.savetxt("yy.tsv", targets.detach().cpu().numpy(), delimiter="\t")
-        """
         dot_product_tempered = torch.mm(projections, projections.T) / 1.0
         # Minus max for numerical stability with exponential. Same done in cross entropy. Epsilon added to avoid log(0)
         exp_dot_tempered = (
