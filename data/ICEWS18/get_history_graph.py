@@ -1,6 +1,5 @@
 import numpy as np
 import os
-from collections import defaultdict
 import pickle
 import dgl
 import torch
@@ -9,70 +8,25 @@ from scipy.sparse import csc_matrix
 
 
 def load_quadruples(inPath, fileName, fileName2=None):
+    quadrupleList = []
+    times = set()
     with open(os.path.join(inPath, fileName), 'r') as fr:
-        quadrupleList = []
-        times = set()
         for line in fr:
-            line_split = line.split()
-            head = int(line_split[0])
-            tail = int(line_split[2])
-            rel = int(line_split[1])
-            time = int(line_split[3])
+            head, rel, tail, time = map(int, line.split())
             quadrupleList.append([head, rel, tail, time])
             times.add(time)
-        # times = list(times)
-        # times.sort()
     if fileName2 is not None:
         with open(os.path.join(inPath, fileName2), 'r') as fr:
             for line in fr:
-                line_split = line.split()
-                head = int(line_split[0])
-                tail = int(line_split[2])
-                rel = int(line_split[1])
-                time = int(line_split[3])
+                head, rel, tail, time = map(int, line.split())
                 quadrupleList.append([head, rel, tail, time])
                 times.add(time)
-    times = list(times)
-    times.sort()
-
-    return np.asarray(quadrupleList), np.asarray(times)
+    return np.array(quadrupleList), np.array(sorted(times))
 
 
 def get_total_number(inPath, fileName):
     with open(os.path.join(inPath, fileName), 'r') as fr:
-        for line in fr:
-            line_split = line.split()
-            return int(line_split[0]), int(line_split[1])
-
-
-def load_quadruples(inPath, fileName, fileName2=None):
-    with open(os.path.join(inPath, fileName), 'r') as fr:
-        quadrupleList = []
-        times = set()
-        for line in fr:
-            line_split = line.split()
-            head = int(line_split[0])
-            tail = int(line_split[2])
-            rel = int(line_split[1])
-            time = int(line_split[3])
-            quadrupleList.append([head, rel, tail, time])
-            times.add(time)
-        # times = list(times)
-        # times.sort()
-    if fileName2 is not None:
-        with open(os.path.join(inPath, fileName2), 'r') as fr:
-            for line in fr:
-                line_split = line.split()
-                head = int(line_split[0])
-                tail = int(line_split[2])
-                rel = int(line_split[1])
-                time = int(line_split[3])
-                quadrupleList.append([head, rel, tail, time])
-                times.add(time)
-    times = list(times)
-    times.sort()
-
-    return np.array(quadrupleList), np.asarray(times)
+        return tuple(map(int, fr.readline().split()[:2]))
 
 
 def get_data_with_t(data, tim):
@@ -98,39 +52,32 @@ def get_big_graph(data, num_rels):
     rel_s = np.concatenate((rel, rel + num_rels))
     g.add_edges(src, dst)
     norm = comp_deg_norm(g)
-    g.ndata.update({'id': torch.from_numpy(uniq_v).long().view(-1, 1), 'norm': norm.view(-1, 1)})
+    g.ndata.update({
+        'id': torch.from_numpy(uniq_v).long().view(-1, 1),
+        'norm': norm.view(-1, 1)
+    })
     g.edata['type_s'] = torch.LongTensor(rel_s)
     g.edata['type_o'] = torch.LongTensor(rel_o)
-    g.ids = {}
-    idx = 0
-    for id in uniq_v:
-        g.ids[id] = idx
-        idx += 1
+    g.ids = {id: idx for idx, id in enumerate(uniq_v)}
     return g
 
 
 def get_history_target(quadruples, s_history_event_o, o_history_event_s):
-    s_history_oid = []
-    o_history_sid = []
-    ss = quadruples[:, 0]
-    rr = quadruples[:, 1]
-    oo = quadruples[:, 2]
-    s_history_related = np.zeros((quadruples.shape[0], num_e), dtype=np.float)
-    o_history_related = np.zeros((quadruples.shape[0], num_e), dtype=np.float)
+    s_history_oid, o_history_sid = [], []
+    ss, rr, oo = quadruples[:, 0], quadruples[:, 1], quadruples[:, 2]
+    s_history_related = np.zeros((quadruples.shape[0], num_e), dtype=np.float64)
+    o_history_related = np.zeros((quadruples.shape[0], num_e), dtype=np.float64)
     for ix in tqdm.tqdm(range(quadruples.shape[0])):
         s_history_oid.append([])
         o_history_sid.append([])
         for con_events in s_history_event_o[ix]:
-            idxx = (con_events[:, 0] == rr[ix]).nonzero()[0]
-            cur_events = con_events[idxx, 1].tolist()
+            cur_events = con_events[(con_events[:, 0] == rr[ix]).nonzero()[0], 1].tolist()
             s_history_oid[-1] += con_events[:, 1].tolist()
             s_history_related[ix][cur_events] += 1
         for con_events in o_history_event_s[ix]:
-            idxx = (con_events[:, 0] == rr[ix]).nonzero()[0]
-            cur_events = con_events[idxx, 1].tolist()
+            cur_events = con_events[(con_events[:, 0] == rr[ix]).nonzero()[0], 1].tolist()
             o_history_sid[-1] += con_events[:, 1].tolist()
             o_history_related[ix][cur_events] += 1
-
     s_history_label_true = np.zeros((quadruples.shape[0], 1))
     o_history_label_true = np.zeros((quadruples.shape[0], 1))
     for ix in tqdm.tqdm(range(quadruples.shape[0])):
@@ -138,9 +85,7 @@ def get_history_target(quadruples, s_history_event_o, o_history_event_s):
             s_history_label_true[ix] = 1
         if ss[ix] in o_history_sid[ix]:
             o_history_label_true[ix] = 1
-    s_history_related = csc_matrix(s_history_related)
-    o_history_related = csc_matrix(o_history_related)
-    return s_history_label_true, o_history_label_true, s_history_related, o_history_related
+    return s_history_label_true, o_history_label_true, csc_matrix(s_history_related), csc_matrix(o_history_related)
 
 
 graph_dict_train = {}

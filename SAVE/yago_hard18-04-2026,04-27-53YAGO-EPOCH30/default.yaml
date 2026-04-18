@@ -1,0 +1,38 @@
+# Default configuration for all datasets
+
+# System arguments
+gpu_id: "0"
+use_cuda: true
+use_seed: true
+seed: 987
+
+# Training arguments
+batch_size: 1024
+max_epochs: 30
+oracle_epochs: 20
+valid_epochs: 5
+
+# Model arguments
+embedding_dim: 200
+dropout: 0.5
+
+# Optimization arguments
+lr: 0.001
+oracle_lr: 0.001
+weight_decay: 1e-05
+grad_norm: 1.0
+
+# Loss arguments
+alpha: 0.1
+lambdax: 10
+
+# Mode arguments
+oracle_mode: soft
+filtering: true
+only_oracle: false
+only_eva: false
+
+# Save/Load arguments
+save_dir: SAVE
+eva_dir: SAVE
+model_dir: ""

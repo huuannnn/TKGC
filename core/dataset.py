@@ -35,15 +35,6 @@ class TKGDataset(Dataset):
             return data
 
     def _load_split_data(self, split: str, required: bool = True) -> bool:
-        """Load data for a split (train/dev/test).
-        
-        Args:
-            split: Data split name ('train', 'dev', 'test')
-            required: If False, gracefully handle missing files
-            
-        Returns:
-            True if data loaded successfully, False otherwise
-        """
         try:
             # Load quadruples
             quadruple_file = f'{split}.txt' if split != 'dev' else 'valid.txt'
@@ -100,19 +91,7 @@ class TKGDataLoader:
     """Custom DataLoader for TKG dataset with complex batch structure."""
     
     def __init__(self, quadruples, s_history, o_history, s_label, o_label, 
-                 s_frequency, o_frequency, batch_size):
-        """Initialize TKG DataLoader.
-        
-        Args:
-            quadruples: Array of quadruples (s, r, o, t)
-            s_history: Subject history data
-            o_history: Object history data
-            s_label: Subject labels
-            o_label: Object labels
-            s_frequency: Subject frequencies
-            o_frequency: Object frequencies
-            batch_size: Batch size
-        """
+                 s_frequency, o_frequency, batch_size, model=None):
         self.quadruples = quadruples
         self.s_history = s_history
         self.o_history = o_history
@@ -123,19 +102,28 @@ class TKGDataLoader:
         self.batch_size = batch_size
         self.num_samples = len(quadruples)
         self.num_batches = (self.num_samples + batch_size - 1) // batch_size
+        self.model = model
+    
+    @property
+    def device(self):
+        """Automatically detect device from model."""
+        if self.model is not None:
+            return next(self.model.parameters()).device
+        return torch.device('cpu')
     
     def __iter__(self):
-        """Iterate over batches."""
+        """Iterate over batches with automatic device placement."""
+        device = self.device
         for i in range(0, self.num_samples, self.batch_size):
             end_idx = min(i + self.batch_size, self.num_samples)
             yield [
-                self.quadruples[i:end_idx],
+                torch.from_numpy(self.quadruples[i:end_idx]).to(device),
                 self.s_history[i:end_idx],
                 self.o_history[i:end_idx],
-                self.s_label[i:end_idx],
-                self.o_label[i:end_idx],
-                self.s_frequency[i:end_idx],
-                self.o_frequency[i:end_idx]
+                torch.from_numpy(self.s_label[i:end_idx]).float().to(device),
+                torch.from_numpy(self.o_label[i:end_idx]).float().to(device),
+                torch.from_numpy(self.s_frequency[i:end_idx]).float().to(device),
+                torch.from_numpy(self.o_frequency[i:end_idx]).float().to(device)
             ]
     
     def __len__(self):

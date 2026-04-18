@@ -16,7 +16,6 @@ from core import TKGDataset, Trainer, OracleTrainer, Logger
 
 
 def main_portal(args, config_default_path=None, config_dataset_path=None):
-    """Main training pipeline."""
     # Set seed for reproducibility from config (if enabled)
     if hasattr(args, 'use_seed') and args.use_seed:
         seed = args.seed if hasattr(args, 'seed') else 987
@@ -35,8 +34,7 @@ def main_portal(args, config_default_path=None, config_dataset_path=None):
     if not args.only_eva and not args.only_oracle:
         model = CENET(num_nodes, num_rels, num_t, args)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
-        if args.use_cuda:
-            model = model.cuda()
+        model = model.to(args.device)
         
         trainer = Trainer(model, optimizer, args, dataset, num_rels, num_nodes, num_t, args.use_cuda)
         trainer.log_config(config_default_path, config_dataset_path)
@@ -87,7 +85,6 @@ def main_portal(args, config_default_path=None, config_dataset_path=None):
 
 
 def load_config(config_file):
-    """Load configuration from YAML file."""
     try:
         with open(config_file, 'r') as f:
             config = yaml.safe_load(f)
@@ -102,7 +99,6 @@ def load_config(config_file):
 
 
 def merge_configs(default_config, dataset_config):
-    """Merge dataset config into default config (dataset overrides defaults)."""
     merged = default_config.copy()
     merged.update(dataset_config)
     return merged
@@ -117,11 +113,6 @@ if __name__ == '__main__':
                         help="Path to dataset-specific config file")
     
     args = parser.parse_args()
-    
-    # Load configs using PyYAML
-    # print("\n" + "="*60)
-    # print("Loading configuration...")
-    # print("="*60)
     default_config = load_config(args.config_default)
     dataset_config = load_config(args.config_dataset)
     
@@ -139,17 +130,5 @@ if __name__ == '__main__':
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args_main.gpu_id)
     use_cuda = args_main.use_cuda and torch.cuda.is_available()
     args_main.use_cuda = use_cuda  # Update args with actual CUDA availability
-    
-    # if use_cuda:
-    #     print(f"GPU Device: {args_main.gpu_id}")
-    # else:
-    #     print("CUDA is not available. Using CPU instead.")
-    
-    # print("\n" + "="*60)
-    # print("Configuration Summary:")
-    # print("="*60)
-    # for key, value in sorted(vars(args_main).items()):
-    #     print(f"  {key:20s} = {value}")
-    # print("="*60 + "\n")
-    
+    args_main.device = torch.device(f'cuda:{args_main.gpu_id}' if use_cuda else 'cpu')
     main_portal(args_main, args.config_default, args.config_dataset)

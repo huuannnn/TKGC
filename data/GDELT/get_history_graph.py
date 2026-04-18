@@ -1,81 +1,36 @@
 import numpy as np
 import os
-from collections import defaultdict
 import pickle
 import dgl
 import torch
 import tqdm
-import gc
 from scipy.sparse import csc_matrix
-
-print('GDELT')
 
 
 def load_quadruples(inPath, fileName, fileName2=None):
+    quadrupleList = []
+    times = set()
+    
     with open(os.path.join(inPath, fileName), 'r') as fr:
-        quadrupleList = []
-        times = set()
         for line in fr:
-            line_split = line.split()
-            head = int(line_split[0])
-            tail = int(line_split[2])
-            rel = int(line_split[1])
-            time = int(line_split[3])
+            head, rel, tail, time = map(int, line.split())
             quadrupleList.append([head, rel, tail, time])
             times.add(time)
-        # times = list(times)
-        # times.sort()
+    
     if fileName2 is not None:
         with open(os.path.join(inPath, fileName2), 'r') as fr:
             for line in fr:
-                line_split = line.split()
-                head = int(line_split[0])
-                tail = int(line_split[2])
-                rel = int(line_split[1])
-                time = int(line_split[3])
+                head, rel, tail, time = map(int, line.split())
                 quadrupleList.append([head, rel, tail, time])
                 times.add(time)
-    times = list(times)
-    times.sort()
-
-    return np.asarray(quadrupleList), np.asarray(times)
+    
+    times = sorted(list(times))
+    return np.array(quadrupleList), np.array(times)
 
 
 def get_total_number(inPath, fileName):
     with open(os.path.join(inPath, fileName), 'r') as fr:
-        for line in fr:
-            line_split = line.split()
-            return int(line_split[0]), int(line_split[1])
-
-
-def load_quadruples(inPath, fileName, fileName2=None):
-    with open(os.path.join(inPath, fileName), 'r') as fr:
-        quadrupleList = []
-        times = set()
-        for line in fr:
-            line_split = line.split()
-            head = int(line_split[0])
-            tail = int(line_split[2])
-            rel = int(line_split[1])
-            time = int(line_split[3])
-            quadrupleList.append([head, rel, tail, time])
-            times.add(time)
-        # times = list(times)
-        # times.sort()
-    if fileName2 is not None:
-        with open(os.path.join(inPath, fileName2), 'r') as fr:
-            for line in fr:
-                line_split = line.split()
-                head = int(line_split[0])
-                tail = int(line_split[2])
-                rel = int(line_split[1])
-                time = int(line_split[3])
-                quadrupleList.append([head, rel, tail, time])
-                times.add(time)
-    times = list(times)
-    times.sort()
-
-    return np.array(quadrupleList), np.asarray(times)
+        return tuple(map(int, fr.readline().split()[:2]))
 
 
 def get_data_with_t(data, tim):
@@ -101,14 +56,13 @@ def get_big_graph(data, num_rels):
     rel_s = np.concatenate((rel, rel + num_rels))
     g.add_edges(src, dst)
     norm = comp_deg_norm(g)
-    g.ndata.update({'id': torch.from_numpy(uniq_v).long().view(-1, 1), 'norm': norm.view(-1, 1)})
+    g.ndata.update({
+        'id': torch.from_numpy(uniq_v).long().view(-1, 1),
+        'norm': norm.view(-1, 1)
+    })
     g.edata['type_s'] = torch.LongTensor(rel_s)
     g.edata['type_o'] = torch.LongTensor(rel_o)
-    g.ids = {}
-    idx = 0
-    for id in uniq_v:
-        g.ids[id] = idx
-        idx += 1
+    g.ids = {id: idx for idx, id in enumerate(uniq_v)}
     return g
 
 

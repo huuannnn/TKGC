@@ -53,6 +53,7 @@ class CENET(nn.Module):
         self.num_t = num_t
         self.num_rel = num_rel
         self.args = args
+        self.device = args.device if hasattr(args, 'device') else torch.device('cpu')
 
         # entity relation embedding
         self.rel_embeds = nn.Parameter(torch.zeros(2 * num_rel, args.embedding_dim))
@@ -190,8 +191,8 @@ class CENET(nn.Module):
             o_ce_loss, o_pred_history_label, o_ce_all_acc = self.oracle_loss(o, r, self.rel_embeds[self.num_rel:],
                                                                              o_history_label_true, o_frequency_hidden)
 
-            s_mask = to_device(torch.zeros(quadruples.shape[0], self.num_e))
-            o_mask = to_device(torch.zeros(quadruples.shape[0], self.num_e))
+            s_mask = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
+            o_mask = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
 
             for i in range(quadruples.shape[0]):
                 if s_pred_history_label[i].item() > 0.5:
@@ -224,8 +225,8 @@ class CENET(nn.Module):
             batch_loss2 = (s_total_loss2 + o_total_loss2) / 2.0
 
             # Ground Truth
-            s_mask_gt = to_device(torch.zeros(quadruples.shape[0], self.num_e))
-            o_mask_gt = to_device(torch.zeros(quadruples.shape[0], self.num_e))
+            s_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
+            o_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
 
 
             for i in range(quadruples.shape[0]):
@@ -399,8 +400,8 @@ class CENET(nn.Module):
         exp_dot_tempered = (
                 torch.exp(dot_product_tempered - torch.max(dot_product_tempered, dim=1, keepdim=True)[0]) + 1e-5
         )
-        mask_similar_class = to_device(targets.unsqueeze(1).repeat(1, targets.shape[0]) == targets)
-        mask_anchor_out = to_device(1 - torch.eye(exp_dot_tempered.shape[0]))
+        mask_similar_class = (targets.unsqueeze(1).repeat(1, targets.shape[0]) == targets).to(self.device)
+        mask_anchor_out = (1 - torch.eye(exp_dot_tempered.shape[0])).to(self.device)
         mask_combined = mask_similar_class * mask_anchor_out
         cardinality_per_samples = torch.sum(mask_combined, dim=1)
         log_prob = -torch.log(exp_dot_tempered / (torch.sum(exp_dot_tempered * mask_anchor_out, dim=1, keepdim=True)))

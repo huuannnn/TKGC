@@ -7,19 +7,7 @@ from core.logger import Logger
 
 
 class OracleTrainer:
-    """Oracle trainer for TKG model."""
-    
     def __init__(self, model, args, dataset, model_path, use_cuda=True, logger=None):
-        """Initialize oracle trainer.
-        
-        Args:
-            model: Pretrained model
-            args: Arguments
-            dataset: Dataset object
-            model_path: Path to save models
-            use_cuda: Whether to use CUDA
-            logger: Optional logger object (if None, creates new one)
-        """
         self.model = model
         self.args = args
         self.dataset = dataset
@@ -81,7 +69,8 @@ class OracleTrainer:
                 self.dataset.train_o_label,
                 self.dataset.train_s_frequency,
                 self.dataset.train_o_frequency,
-                self.args.batch_size
+                self.args.batch_size,
+                model=self.model
             )
             
             # Oracle training batches with progress bar
@@ -89,8 +78,6 @@ class OracleTrainer:
                        desc=f"Oracle Epoch {oracle_epoch}", unit='batch')
             
             for batch_idx, batch_data in pbar:
-                batch_data = self._prepare_batch(batch_data)
-                
                 loss = self.model(batch_data, 'Oracle')
                 if loss is None:
                     continue

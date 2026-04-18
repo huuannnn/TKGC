@@ -7,7 +7,6 @@ import datetime
 import os
 import random
 from tqdm import tqdm
-import utils
 from cenet_model import CENET
 from core import TKGDataLoader
 
@@ -28,22 +27,18 @@ def execute_test(args, total_data, model,
     s_ranks3 = []
     o_ranks3 = []
     all_ranks3 = []
-    total_data = utils.to_device(torch.from_numpy(total_data))
+    device = args.device if hasattr(args, 'device') else torch.device('cpu')
+    total_data = torch.from_numpy(total_data).to(device)
     
     test_loader = TKGDataLoader(data, s_history, o_history, 
                                 s_label, o_label, 
                                 s_frequency, o_frequency, 
-                                args.batch_size)
+                                args.batch_size,
+                                model=model)
     
     # Testing with progress bar
     pbar = tqdm(test_loader, desc="Testing", unit='batch')
     for batch_data in pbar:
-        batch_data[0] = utils.to_device(torch.from_numpy(batch_data[0]))
-        batch_data[3] = utils.to_device(torch.from_numpy(batch_data[3])).float()
-        batch_data[4] = utils.to_device(torch.from_numpy(batch_data[4])).float()
-        batch_data[5] = utils.to_device(torch.from_numpy(batch_data[5])).float()
-        batch_data[6] = utils.to_device(torch.from_numpy(batch_data[6])).float()
-
         with torch.no_grad():
             sub_rank1, obj_rank1, cur_loss1, \
             sub_rank2, obj_rank2, cur_loss2, \

@@ -5,11 +5,6 @@ class Logger:
     """Custom logger that writes to both console and .log file."""
     
     def __init__(self, log_file):
-        """Initialize logger.
-        
-        Args:
-            log_file: Path to log file
-        """
         self.log_file = log_file
         self.logger = logging.getLogger(log_file)
         self.logger.setLevel(logging.DEBUG)
@@ -25,11 +20,9 @@ class Logger:
         self.logger.addHandler(fh)
     
     def write(self, message):
-        """Write message to log file and console."""
         print(message)
         self.logger.info(message)
     
     def close(self):
-        """Close logger."""
         for handler in self.logger.handlers:
             handler.close()

@@ -24,21 +24,18 @@ def execute_valid(args, total_data, model,
     s_ranks3 = []
     o_ranks3 = []
     all_ranks3 = []
-    total_data = utils.to_device(torch.from_numpy(total_data))
+    device = next(model.parameters()).device
+    total_data = torch.from_numpy(total_data).to(device)
     
     valid_loader = TKGDataLoader(data, s_history, o_history, 
                                  s_label, o_label, 
                                  s_frequency, o_frequency, 
-                                 args.batch_size)
+                                 args.batch_size,
+                                 model=model)
     
     # Validation with progress bar
     pbar = tqdm(valid_loader, desc="Validating", unit='batch')
     for batch_data in pbar:
-        batch_data[0] = utils.to_device(torch.from_numpy(batch_data[0]))
-        batch_data[3] = utils.to_device(torch.from_numpy(batch_data[3])).float()
-        batch_data[4] = utils.to_device(torch.from_numpy(batch_data[4])).float()
-        batch_data[5] = utils.to_device(torch.from_numpy(batch_data[5])).float()
-        batch_data[6] = utils.to_device(torch.from_numpy(batch_data[6])).float()
 
         with torch.no_grad():
             _, _, _, \

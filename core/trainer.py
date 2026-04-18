@@ -15,18 +15,6 @@ class Trainer:
     
     def __init__(self, model, optimizer, args, dataset, num_relations, num_nodes, num_t, 
                  use_cuda=True):
-        """Initialize trainer.
-        
-        Args:
-            model: Model to train
-            optimizer: Optimizer
-            args: Arguments
-            dataset: Dataset object with train/dev/test data
-            num_relations: Number of relations
-            num_nodes: Number of nodes
-            num_t: Number of timestamps
-            use_cuda: Whether to use CUDA
-        """
         self.model = model
         self.optimizer = optimizer
         self.args = args
@@ -53,7 +41,6 @@ class Trainer:
         self._log_config()
     
     def _log_config(self):
-        """Log configuration."""
         # self.train_logger.write("Training Configuration:")
         # self.train_logger.write(f"Dataset: {self.args.dataset}")
         # self.train_logger.write(f"Max Epochs: {self.args.max_epochs}")
@@ -68,12 +55,6 @@ class Trainer:
         pass
     
     def log_config(self, config_default_path=None, config_dataset_path=None):
-        """Log configuration to training logger and save config files.
-        
-        Args:
-            config_default_path: Path to default config file
-            config_dataset_path: Path to dataset config file
-        """
         self.logger.write("Loading configuration...")
         if config_default_path:
             self.logger.write(f"Loaded config from: {config_default_path}")
@@ -112,23 +93,6 @@ class Trainer:
             self.logger.write(f"  GPU Memory Allocated: {mem_info['allocated']:.2f} GB")
             self.logger.write(f"  GPU Memory Peak: {mem_info['peak']:.2f} GB")
     
-    def _prepare_batch(self, batch_data):
-        """Prepare batch data for model."""
-        batch_data[0] = torch.from_numpy(batch_data[0])
-        batch_data[3] = torch.from_numpy(batch_data[3]).float()
-        batch_data[4] = torch.from_numpy(batch_data[4]).float()
-        batch_data[5] = torch.from_numpy(batch_data[5]).float()
-        batch_data[6] = torch.from_numpy(batch_data[6]).float()
-        
-        if self.use_cuda:
-            batch_data[0] = batch_data[0].cuda()
-            batch_data[3] = batch_data[3].cuda()
-            batch_data[4] = batch_data[4].cuda()
-            batch_data[5] = batch_data[5].cuda()
-            batch_data[6] = batch_data[6].cuda()
-        
-        return batch_data
-    
     def train(self):
         """Run training loop."""
         # self.logger.write("Starting training...")
@@ -151,7 +115,8 @@ class Trainer:
                 self.dataset.train_o_label,
                 self.dataset.train_s_frequency,
                 self.dataset.train_o_frequency,
-                self.args.batch_size
+                self.args.batch_size,
+                model=self.model
             )
             
             # Training batches with progress bar
@@ -159,8 +124,6 @@ class Trainer:
                        desc=f"Training Epoch {epoch}", unit='batch')
             
             for batch_idx, batch_data in pbar:
-                batch_data = self._prepare_batch(batch_data)
-                
                 loss = self.model(batch_data, 'Training')
                 if loss is None:
                     continue
