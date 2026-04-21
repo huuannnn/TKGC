@@ -1,15 +1,10 @@
-import argparse
 import numpy as np
 import torch
-import pickle
-import time
-import datetime
-import os
-import random
 from tqdm import tqdm
-from cenet_model import CENET
 from core import TKGDataLoader
 
+# Cache for converted tensors to avoid repeated numpy→torch conversion
+_total_data_cache = {}
 
 def execute_test(args, total_data, model,
                  data,
@@ -27,8 +22,14 @@ def execute_test(args, total_data, model,
     s_ranks3 = []
     o_ranks3 = []
     all_ranks3 = []
+    
     device = args.device if hasattr(args, 'device') else torch.device('cpu')
-    total_data = torch.from_numpy(total_data).to(device)
+    
+    # Use cached tensor to avoid repeated conversion
+    cache_key = (id(total_data), str(device))
+    if cache_key not in _total_data_cache:
+        _total_data_cache[cache_key] = torch.from_numpy(total_data).to(device)
+    total_data_tensor = _total_data_cache[cache_key]
     
     test_loader = TKGDataLoader(data, s_history, o_history, 
                                 s_label, o_label, 
@@ -52,7 +53,7 @@ def execute_test(args, total_data, model,
         with torch.no_grad():
             sub_rank1, obj_rank1, cur_loss1, \
             sub_rank2, obj_rank2, cur_loss2, \
-            sub_rank3, obj_rank3, cur_loss3, ce_all_acc = model(batch_data, 'Test', total_data)
+            sub_rank3, obj_rank3, cur_loss3, ce_all_acc = model(batch_data, 'Test', total_data_tensor)
 
             s_ranks1 += sub_rank1
             o_ranks1 += obj_rank1
@@ -69,7 +70,6 @@ def execute_test(args, total_data, model,
             tmp3 = sub_rank3 + obj_rank3
             all_ranks3 += tmp3
     
-    pbar.close()
     return s_ranks1, o_ranks1, all_ranks1, \
            s_ranks2, o_ranks2, all_ranks2, \
            s_ranks3, o_ranks3, all_ranks3

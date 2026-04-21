@@ -32,7 +32,17 @@ def main_portal(args, config_default_path=None, config_dataset_path=None):
     
     # Training phase
     if not args.only_eva and not args.only_oracle:
-        model = CENET(num_nodes, num_rels, num_t, args)
+        model = CENET(
+            num_nodes,
+            num_rels,
+            num_t,
+            embedding_dim=args.embedding_dim,
+            dropout=args.dropout,
+            lambdax=args.lambdax,
+            alpha=args.alpha,
+            oracle_mode=args.oracle_mode,
+            filtering=args.filtering,
+        )
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
         model = model.to(args.device)
         

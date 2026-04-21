@@ -100,6 +100,18 @@ class Trainer:
     def train(self):
         best_mrr = 0
         
+        # Create training loader once (outside epoch loop for efficiency)
+        train_loader = TKGDataLoader(
+            self.dataset.train_data,
+            self.dataset.train_s_history,
+            self.dataset.train_o_history,
+            self.dataset.train_s_label,
+            self.dataset.train_o_label,
+            self.dataset.train_s_frequency,
+            self.dataset.train_o_frequency,
+            self.args.batch_size
+        )
+        
         for epoch in range(1, self.args.max_epochs + 1):
             self.model.train()
             self.logger.write(f"Epoch {epoch}/{self.args.max_epochs}")
@@ -107,20 +119,11 @@ class Trainer:
             loss_epoch = 0
             batch_count = 0
             time_begin = time.time()
-            train_loader = TKGDataLoader(
-                self.dataset.train_data,
-                self.dataset.train_s_history,
-                self.dataset.train_o_history,
-                self.dataset.train_s_label,
-                self.dataset.train_o_label,
-                self.dataset.train_s_frequency,
-                self.dataset.train_o_frequency,
-                self.args.batch_size
-            )
-            pbar = tqdm(enumerate(train_loader), total=len(train_loader), 
+            
+            pbar = tqdm(train_loader, total=len(train_loader), 
                        desc=f"Training Epoch {epoch}", unit='batch')
             
-            for batch_idx, batch_data in pbar:
+            for batch_data in pbar:
                 batch_data = self._move_batch_to_device(batch_data)
                 loss = self.model(batch_data, 'Training')
                 if loss is None:
@@ -134,22 +137,27 @@ class Trainer:
                 loss_item = loss.item()
                 loss_epoch += loss_item
                 batch_count += 1
+                avg_loss_batch = loss_epoch / batch_count
                 pbar.set_postfix({
                     'loss': f'{loss_item:.4f}',
-                    'avg_loss': f'{loss_epoch/batch_count:.4f}'
+                    'avg_loss': f'{avg_loss_batch:.4f}'
                 })
-            pbar.close()
+            
             epoch_time = time.time() - time_begin
             avg_loss = loss_epoch / batch_count if batch_count > 0 else 0
             self.logger.write(
                 f"[TRAIN] Epoch {epoch}: Loss = {avg_loss:.6f} (Time: {epoch_time:.2f}s)"
             )
+            
+            # Log GPU memory info only when using CUDA
             if self.use_cuda:
                 mem_info = utils.get_gpu_memory_info(f'cuda:{self.args.gpu_id}')
                 if mem_info:
                     self.logger.write(
                         f"[VRAM] Peak: {mem_info['peak']:.2f}GB | Reserved: {mem_info['reserved']:.2f}GB"
                     )
+            
+            # Validation
             if epoch % self.args.valid_epochs == 0 and self.args.dataset != 'ICEWS14T':
                 best_mrr, val_loss = self._validate(epoch, best_mrr)
                 self._log_metrics(epoch, avg_loss, val_loss)

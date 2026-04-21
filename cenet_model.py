@@ -22,42 +22,39 @@ class Oracle(nn.Module):
 
 
 class CENET(nn.Module):
-    def __init__(self, num_e, num_rel, num_t, args):
+    def __init__(self, num_e, num_rel, num_t, embedding_dim, dropout, lambdax, alpha, oracle_mode, filtering):
         super(CENET, self).__init__()
         # stats
         self.num_e = num_e
         self.num_t = num_t
         self.num_rel = num_rel
-        self.args = args
-        self.device = args.device if hasattr(args, 'device') else torch.device('cpu')
+        self.embedding_dim = embedding_dim
+        self.lambdax = lambdax
+        self.alpha = alpha
+        self.oracle_mode = oracle_mode
+        self.filtering = filtering
 
         # entity relation embedding
-        self.rel_embeds = nn.Parameter(torch.zeros(2 * num_rel, args.embedding_dim))
-        self.entity_embeds = nn.Parameter(torch.zeros(self.num_e, args.embedding_dim))
+        self.rel_embeds = nn.Parameter(torch.zeros(2 * num_rel, embedding_dim))
+        self.entity_embeds = nn.Parameter(torch.zeros(self.num_e, embedding_dim))
 
-        self.linear_frequency = nn.Linear(self.num_e, args.embedding_dim)
+        self.linear_frequency = nn.Linear(self.num_e, embedding_dim)
 
-        self.contrastive_hidden_layer = nn.Linear(3 * args.embedding_dim, args.embedding_dim)
-        self.contrastive_output_layer = nn.Linear(args.embedding_dim, args.embedding_dim)
-        self.oracle_layer = Oracle(3 * args.embedding_dim, 1)
+        self.contrastive_hidden_layer = nn.Linear(3 * embedding_dim, embedding_dim)
+        self.oracle_layer = Oracle(3 * embedding_dim, 1)
 
-        self.linear_pred_layer_s1 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
-        self.linear_pred_layer_o1 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
+        self.linear_pred_layer_s1 = nn.Linear(2 * embedding_dim, embedding_dim)
+        self.linear_pred_layer_o1 = nn.Linear(2 * embedding_dim, embedding_dim)
 
-        self.linear_pred_layer_s2 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
-        self.linear_pred_layer_o2 = nn.Linear(2 * args.embedding_dim, args.embedding_dim)
+        self.linear_pred_layer_s2 = nn.Linear(2 * embedding_dim, embedding_dim)
+        self.linear_pred_layer_o2 = nn.Linear(2 * embedding_dim, embedding_dim)
 
         # Initialize weights and embeddings
         self.reset_parameters()
 
-        self.dropout = nn.Dropout(args.dropout)
-        self.logSoftmax = nn.LogSoftmax()
-        self.softmax = nn.Softmax()
+        self.dropout = nn.Dropout(dropout)
         self.tanh = nn.Tanh()
-        self.relu = nn.ReLU()
-        self.sigmoid = nn.Sigmoid()
         self.crossEntropy = nn.BCELoss()
-        self.oracle_mode = args.oracle_mode
 
     def reset_parameters(self):
         """Initialize all parameters and embeddings using Xavier uniform distribution."""
@@ -101,17 +98,17 @@ class CENET(nn.Module):
         s_non_history_tag = copy.deepcopy(s_frequency)
         o_non_history_tag = copy.deepcopy(o_frequency)
 
-        s_history_tag[s_history_tag != 0] = self.args.lambdax
-        o_history_tag[o_history_tag != 0] = self.args.lambdax
+        s_history_tag[s_history_tag != 0] = self.lambdax
+        o_history_tag[o_history_tag != 0] = self.lambdax
 
-        s_non_history_tag[s_history_tag == 1] = -self.args.lambdax
-        s_non_history_tag[s_history_tag == 0] = self.args.lambdax
+        s_non_history_tag[s_history_tag == 1] = -self.lambdax
+        s_non_history_tag[s_history_tag == 0] = self.lambdax
 
-        o_non_history_tag[o_history_tag == 1] = -self.args.lambdax
-        o_non_history_tag[o_history_tag == 0] = self.args.lambdax
+        o_non_history_tag[o_history_tag == 1] = -self.lambdax
+        o_non_history_tag[o_history_tag == 0] = self.lambdax
 
-        s_history_tag[s_history_tag == 0] = -self.args.lambdax
-        o_history_tag[o_history_tag == 0] = -self.args.lambdax
+        s_history_tag[s_history_tag == 0] = -self.lambdax
+        o_history_tag[o_history_tag == 0] = -self.lambdax
 
         s_frequency = F.softmax(s_frequency, dim=1)
         o_frequency = F.softmax(o_frequency, dim=1)
@@ -133,7 +130,7 @@ class CENET(nn.Module):
             nce_loss = (s_nce_loss + o_nce_loss) / 2.0
             spc_loss = (s_spc_loss + o_spc_loss) / 2.0
             # print('nce loss', nce_loss.item(), ' spc loss', spc_loss.item())
-            return self.args.alpha * nce_loss + (1 - self.args.alpha) * spc_loss
+            return self.alpha * nce_loss + (1 - self.alpha) * spc_loss
 
         elif mode_lk in ['Valid', 'Test']:
             s_history_oid = []
@@ -159,8 +156,8 @@ class CENET(nn.Module):
             o_ce_loss, o_pred_history_label, o_ce_all_acc = self.oracle_loss(o, r, self.rel_embeds[self.num_rel:],
                                                                              o_history_label_true, o_frequency_hidden)
 
-            s_mask = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
-            o_mask = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
+            s_mask = torch.zeros(quadruples.shape[0], self.num_e, device=quadruples.device)
+            o_mask = torch.zeros(quadruples.shape[0], self.num_e, device=quadruples.device)
 
             for i in range(quadruples.shape[0]):
                 if s_pred_history_label[i].item() > 0.5:
@@ -193,8 +190,8 @@ class CENET(nn.Module):
             batch_loss2 = (s_total_loss2 + o_total_loss2) / 2.0
 
             # Ground Truth
-            s_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
-            o_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=self.device)
+            s_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=quadruples.device)
+            o_mask_gt = torch.zeros(quadruples.shape[0], self.num_e, device=quadruples.device)
 
 
             for i in range(quadruples.shape[0]):
@@ -263,8 +260,7 @@ class CENET(nn.Module):
 
         return nce, preds1 + preds2
 
-    def link_predict(self, nce_loss, preds, ce_loss, actor1, actor2, r, trust_musk, all_triples, pred_known, oracle,
-                     history_tag=None, case_study=False):
+    def link_predict(self, nce_loss, preds, ce_loss, actor1, actor2, r, trust_musk, all_triples, pred_known, oracle):
         if oracle:
             preds = torch.mul(preds, trust_musk)
 
@@ -282,13 +278,10 @@ class CENET(nn.Module):
             cur_s = actor1[i]
             cur_r = r[i]
             cur_o = actor2[i]
-            if case_study:
-                in_history = torch.where(history_tag[i] > 0)[0]
-                not_in_history = torch.where(history_tag[i] < 0)[0]
 
             o_label = cur_o
             ground = preds[i, cur_o].clone().item()
-            if self.args.filtering:
+            if self.filtering:
                 if pred_known == 's':
                     s_id = torch.nonzero(all_triples[:, 0] == cur_s).view(-1)
                     idx = torch.nonzero(all_triples[s_id, 1] == cur_r).view(-1)
@@ -308,10 +301,6 @@ class CENET(nn.Module):
             ranks.append(np.sum(ob_pred_comp1) + ((np.sum(ob_pred_comp2) - 1.0) / 2) + 1)
         return total_loss, ranks
 
-    def regularization_loss(self, reg_param):
-        regularization_loss = torch.mean(self.rel_embeds.pow(2)) + torch.mean(self.entity_embeds.pow(2))
-        return regularization_loss * reg_param
-
     def oracle_l1(self, reg_param):
         reg = 0
         for param in self.oracle_layer.parameters():
@@ -328,7 +317,6 @@ class CENET(nn.Module):
         self.linear_pred_layer_o2.requires_grad_(False)
         self.linear_frequency.requires_grad_(False)
         self.contrastive_hidden_layer.requires_grad_(False)
-        self.contrastive_output_layer.requires_grad_(False)
 
     def contrastive_layer(self, x):
         x = self.contrastive_hidden_layer(x)
@@ -340,11 +328,9 @@ class CENET(nn.Module):
         targets = torch.squeeze(targets)
         dot_product_tempered = torch.mm(projections, projections.T) / 1.0
         # Minus max for numerical stability with exponential. Same done in cross entropy. Epsilon added to avoid log(0)
-        exp_dot_tempered = (
-                torch.exp(dot_product_tempered - torch.max(dot_product_tempered, dim=1, keepdim=True)[0]) + 1e-5
-        )
-        mask_similar_class = (targets.unsqueeze(1).repeat(1, targets.shape[0]) == targets).to(self.device)
-        mask_anchor_out = (1 - torch.eye(exp_dot_tempered.shape[0])).to(self.device)
+        exp_dot_tempered = torch.exp(dot_product_tempered - torch.max(dot_product_tempered, dim=1, keepdim=True)[0]) + 1e-5
+        mask_similar_class = (targets.unsqueeze(1).repeat(1, targets.shape[0]) == targets).to(projections.device)
+        mask_anchor_out = (1 - torch.eye(exp_dot_tempered.shape[0])).to(projections.device)
         mask_combined = mask_similar_class * mask_anchor_out
         cardinality_per_samples = torch.sum(mask_combined, dim=1)
         log_prob = -torch.log(exp_dot_tempered / (torch.sum(exp_dot_tempered * mask_anchor_out, dim=1, keepdim=True)))

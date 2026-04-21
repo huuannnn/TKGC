@@ -1,0 +1,374 @@
+2026-04-19 12:29:57,358 - INFO - Loaded config from: configs/default.yaml
+2026-04-19 12:29:57,358 - INFO - Loaded config from: configs/YAGO.yaml
+2026-04-19 12:29:57,358 - INFO -   alpha                = 0.2
+2026-04-19 12:29:57,358 - INFO -   batch_size           = 1024
+2026-04-19 12:29:57,358 - INFO -   dataset              = YAGO
+2026-04-19 12:29:57,358 - INFO -   description          = yago_hard
+2026-04-19 12:29:57,358 - INFO -   device               = cuda:0
+2026-04-19 12:29:57,358 - INFO -   dropout              = 0.5
+2026-04-19 12:29:57,358 - INFO -   embedding_dim        = 200
+2026-04-19 12:29:57,358 - INFO -   eva_dir              = SAVE
+2026-04-19 12:29:57,358 - INFO -   filtering            = True
+2026-04-19 12:29:57,358 - INFO -   gpu_id               = 0
+2026-04-19 12:29:57,358 - INFO -   grad_norm            = 1.0
+2026-04-19 12:29:57,358 - INFO -   lambdax              = 2
+2026-04-19 12:29:57,358 - INFO -   lr                   = 0.001
+2026-04-19 12:29:57,358 - INFO -   max_epochs           = 30
+2026-04-19 12:29:57,358 - INFO -   model_dir            = 
+2026-04-19 12:29:57,358 - INFO -   only_eva             = False
+2026-04-19 12:29:57,358 - INFO -   only_oracle          = False
+2026-04-19 12:29:57,358 - INFO -   oracle_epochs        = 20
+2026-04-19 12:29:57,358 - INFO -   oracle_lr            = 0.001
+2026-04-19 12:29:57,358 - INFO -   oracle_mode          = hard
+2026-04-19 12:29:57,359 - INFO -   save_dir             = SAVE
+2026-04-19 12:29:57,359 - INFO -   seed                 = 987
+2026-04-19 12:29:57,359 - INFO -   use_cuda             = True
+2026-04-19 12:29:57,359 - INFO -   use_seed             = True
+2026-04-19 12:29:57,359 - INFO -   valid_epochs         = 5
+2026-04-19 12:29:57,359 - INFO -   weight_decay         = 1e-05
+2026-04-19 12:29:57,359 - INFO - 
+2026-04-19 12:29:57,359 - INFO - Saved config to: SAVE/yago_hard19-04-2026,12-29-57YAGO-EPOCH30/default.yaml
+2026-04-19 12:29:57,359 - INFO - Saved config to: SAVE/yago_hard19-04-2026,12-29-57YAGO-EPOCH30/YAGO.yaml
+2026-04-19 12:29:57,359 - INFO - Model Information:
+2026-04-19 12:29:57,359 - INFO -   Total Parameters: 5,056,801
+2026-04-19 12:29:57,359 - INFO -   Trainable Parameters: 5,056,801
+2026-04-19 12:29:57,360 - INFO -   GPU Memory Reserved: 0.02 GB
+2026-04-19 12:29:57,360 - INFO -   GPU Memory Allocated: 0.02 GB
+2026-04-19 12:29:57,360 - INFO -   GPU Memory Peak: 0.02 GB
+2026-04-19 12:29:57,360 - INFO - Epoch 1/30
+2026-04-19 12:30:04,919 - INFO - [TRAIN] Epoch 1: Loss = 5.923944 (Time: 7.56s)
+2026-04-19 12:30:04,938 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:30:04,938 - INFO - Epoch 2/30
+2026-04-19 12:30:12,220 - INFO - [TRAIN] Epoch 2: Loss = 5.812930 (Time: 7.28s)
+2026-04-19 12:30:12,240 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:30:12,240 - INFO - Epoch 3/30
+2026-04-19 12:30:19,198 - INFO - [TRAIN] Epoch 3: Loss = 5.769310 (Time: 6.96s)
+2026-04-19 12:30:19,218 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:30:19,219 - INFO - Epoch 4/30
+2026-04-19 12:30:26,008 - INFO - [TRAIN] Epoch 4: Loss = 5.742529 (Time: 6.79s)
+2026-04-19 12:30:26,027 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:30:26,027 - INFO - Epoch 5/30
+2026-04-19 12:30:32,811 - INFO - [TRAIN] Epoch 5: Loss = 5.721124 (Time: 6.78s)
+2026-04-19 12:30:32,831 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:30:32,831 - INFO - [VALIDATION] Epoch 5
+2026-04-19 12:32:03,171 - INFO -   [No Oracle Filtering]
+2026-04-19 12:32:03,172 - INFO -     Subject test MRR (lk): 0.834152
+2026-04-19 12:32:03,172 - INFO -     Subject test MR (lk): 159.278876
+2026-04-19 12:32:03,172 - INFO -     Subject test Hits (lk) @ 1: 0.817856
+2026-04-19 12:32:03,172 - INFO -     Subject test Hits (lk) @ 3: 0.843415
+2026-04-19 12:32:03,173 - INFO -     Subject test Hits (lk) @ 10: 0.862265
+2026-04-19 12:32:03,173 - INFO -     Object test MRR (lk): 0.832627
+2026-04-19 12:32:03,174 - INFO -     Object test MR (lk): 193.509246
+2026-04-19 12:32:03,174 - INFO -     Object test Hits (lk) @ 1: 0.825232
+2026-04-19 12:32:03,174 - INFO -     Object test Hits (lk) @ 3: 0.836654
+2026-04-19 12:32:03,174 - INFO -     Object test Hits (lk) @ 10: 0.845618
+2026-04-19 12:32:03,175 - INFO -     ALL test MRR (lk): 0.833389
+2026-04-19 12:32:03,175 - INFO -     ALL test MR (lk): 176.394061
+2026-04-19 12:32:03,175 - INFO -     ALL test Hits (lk) @ 1: 0.821544
+2026-04-19 12:32:03,175 - INFO -     ALL test Hits (lk) @ 3: 0.840035
+2026-04-19 12:32:03,176 - INFO -     ALL test Hits (lk) @ 10: 0.853942
+2026-04-19 12:32:03,176 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:32:03,176 - INFO -     Subject test MRR (lk): 0.892066
+2026-04-19 12:32:03,177 - INFO -     Subject test MR (lk): 150.776597
+2026-04-19 12:32:03,177 - INFO -     Subject test Hits (lk) @ 1: 0.888798
+2026-04-19 12:32:03,177 - INFO -     Subject test Hits (lk) @ 3: 0.892691
+2026-04-19 12:32:03,177 - INFO -     Subject test Hits (lk) @ 10: 0.896737
+2026-04-19 12:32:03,178 - INFO -     Object test MRR (lk): 0.887177
+2026-04-19 12:32:03,178 - INFO -     Object test MR (lk): 179.274138
+2026-04-19 12:32:03,178 - INFO -     Object test Hits (lk) @ 1: 0.885827
+2026-04-19 12:32:03,178 - INFO -     Object test Hits (lk) @ 3: 0.886647
+2026-04-19 12:32:03,178 - INFO -     Object test Hits (lk) @ 10: 0.888798
+2026-04-19 12:32:03,179 - INFO -     ALL test MRR (lk): 0.889621
+2026-04-19 12:32:03,179 - INFO -     ALL test MR (lk): 165.025368
+2026-04-19 12:32:03,179 - INFO -     ALL test Hits (lk) @ 1: 0.887312
+2026-04-19 12:32:03,179 - INFO -     ALL test Hits (lk) @ 3: 0.889669
+2026-04-19 12:32:03,180 - INFO -     ALL test Hits (lk) @ 10: 0.892768
+2026-04-19 12:32:03,196 - INFO -   Model improved! Best MRR = 0.889621
+2026-04-19 12:32:03,198 - INFO - Epoch 6/30
+2026-04-19 12:32:10,952 - INFO - [TRAIN] Epoch 6: Loss = 5.704728 (Time: 7.75s)
+2026-04-19 12:32:10,972 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:32:10,972 - INFO - Epoch 7/30
+2026-04-19 12:32:18,335 - INFO - [TRAIN] Epoch 7: Loss = 5.691355 (Time: 7.36s)
+2026-04-19 12:32:18,354 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:32:18,355 - INFO - Epoch 8/30
+2026-04-19 12:32:25,117 - INFO - [TRAIN] Epoch 8: Loss = 5.678435 (Time: 6.76s)
+2026-04-19 12:32:25,137 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:32:25,137 - INFO - Epoch 9/30
+2026-04-19 12:32:31,807 - INFO - [TRAIN] Epoch 9: Loss = 5.665593 (Time: 6.67s)
+2026-04-19 12:32:31,827 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:32:31,827 - INFO - Epoch 10/30
+2026-04-19 12:32:38,609 - INFO - [TRAIN] Epoch 10: Loss = 5.653815 (Time: 6.78s)
+2026-04-19 12:32:38,628 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:32:38,628 - INFO - [VALIDATION] Epoch 10
+2026-04-19 12:34:15,119 - INFO -   [No Oracle Filtering]
+2026-04-19 12:34:15,120 - INFO -     Subject test MRR (lk): 0.849172
+2026-04-19 12:34:15,120 - INFO -     Subject test MR (lk): 143.908083
+2026-04-19 12:34:15,120 - INFO -     Subject test Hits (lk) @ 1: 0.838037
+2026-04-19 12:34:15,120 - INFO -     Subject test Hits (lk) @ 3: 0.854070
+2026-04-19 12:34:15,120 - INFO -     Subject test Hits (lk) @ 10: 0.867797
+2026-04-19 12:34:15,121 - INFO -     Object test MRR (lk): 0.839781
+2026-04-19 12:34:15,121 - INFO -     Object test MR (lk): 171.114480
+2026-04-19 12:34:15,121 - INFO -     Object test Hits (lk) @ 1: 0.834298
+2026-04-19 12:34:15,121 - INFO -     Object test Hits (lk) @ 3: 0.840598
+2026-04-19 12:34:15,122 - INFO -     Object test Hits (lk) @ 10: 0.848794
+2026-04-19 12:34:15,123 - INFO -     ALL test MRR (lk): 0.844476
+2026-04-19 12:34:15,123 - INFO -     ALL test MR (lk): 157.511282
+2026-04-19 12:34:15,123 - INFO -     ALL test Hits (lk) @ 1: 0.836168
+2026-04-19 12:34:15,123 - INFO -     ALL test Hits (lk) @ 3: 0.847334
+2026-04-19 12:34:15,123 - INFO -     ALL test Hits (lk) @ 10: 0.858295
+2026-04-19 12:34:15,123 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:34:15,124 - INFO -     Subject test MRR (lk): 0.892465
+2026-04-19 12:34:15,124 - INFO -     Subject test MR (lk): 134.456923
+2026-04-19 12:34:15,124 - INFO -     Subject test Hits (lk) @ 1: 0.888695
+2026-04-19 12:34:15,124 - INFO -     Subject test Hits (lk) @ 3: 0.892998
+2026-04-19 12:34:15,124 - INFO -     Subject test Hits (lk) @ 10: 0.897967
+2026-04-19 12:34:15,125 - INFO -     Object test MRR (lk): 0.887527
+2026-04-19 12:34:15,125 - INFO -     Object test MR (lk): 157.212160
+2026-04-19 12:34:15,125 - INFO -     Object test Hits (lk) @ 1: 0.885827
+2026-04-19 12:34:15,125 - INFO -     Object test Hits (lk) @ 3: 0.887159
+2026-04-19 12:34:15,125 - INFO -     Object test Hits (lk) @ 10: 0.889105
+2026-04-19 12:34:15,127 - INFO -     ALL test MRR (lk): 0.889996
+2026-04-19 12:34:15,127 - INFO -     ALL test MR (lk): 145.834541
+2026-04-19 12:34:15,127 - INFO -     ALL test Hits (lk) @ 1: 0.887261
+2026-04-19 12:34:15,127 - INFO -     ALL test Hits (lk) @ 3: 0.890078
+2026-04-19 12:34:15,127 - INFO -     ALL test Hits (lk) @ 10: 0.893536
+2026-04-19 12:34:15,143 - INFO -   Model improved! Best MRR = 0.889996
+2026-04-19 12:34:15,145 - INFO - Epoch 11/30
+2026-04-19 12:34:22,186 - INFO - [TRAIN] Epoch 11: Loss = 5.643972 (Time: 7.04s)
+2026-04-19 12:34:22,205 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:34:22,206 - INFO - Epoch 12/30
+2026-04-19 12:34:29,120 - INFO - [TRAIN] Epoch 12: Loss = 5.635701 (Time: 6.91s)
+2026-04-19 12:34:29,140 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:34:29,140 - INFO - Epoch 13/30
+2026-04-19 12:34:36,220 - INFO - [TRAIN] Epoch 13: Loss = 5.628813 (Time: 7.08s)
+2026-04-19 12:34:36,239 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:34:36,239 - INFO - Epoch 14/30
+2026-04-19 12:34:43,435 - INFO - [TRAIN] Epoch 14: Loss = 5.622995 (Time: 7.20s)
+2026-04-19 12:34:43,455 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:34:43,455 - INFO - Epoch 15/30
+2026-04-19 12:34:50,386 - INFO - [TRAIN] Epoch 15: Loss = 5.618147 (Time: 6.93s)
+2026-04-19 12:34:50,405 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:34:50,405 - INFO - [VALIDATION] Epoch 15
+2026-04-19 12:36:21,192 - INFO -   [No Oracle Filtering]
+2026-04-19 12:36:21,193 - INFO -     Subject test MRR (lk): 0.844287
+2026-04-19 12:36:21,193 - INFO -     Subject test MR (lk): 140.232290
+2026-04-19 12:36:21,193 - INFO -     Subject test Hits (lk) @ 1: 0.831686
+2026-04-19 12:36:21,193 - INFO -     Subject test Hits (lk) @ 3: 0.848896
+2026-04-19 12:36:21,193 - INFO -     Subject test Hits (lk) @ 10: 0.866004
+2026-04-19 12:36:21,194 - INFO -     Object test MRR (lk): 0.834814
+2026-04-19 12:36:21,194 - INFO -     Object test MR (lk): 166.007325
+2026-04-19 12:36:21,194 - INFO -     Object test Hits (lk) @ 1: 0.826307
+2026-04-19 12:36:21,194 - INFO -     Object test Hits (lk) @ 3: 0.837576
+2026-04-19 12:36:21,194 - INFO -     Object test Hits (lk) @ 10: 0.849050
+2026-04-19 12:36:21,195 - INFO -     ALL test MRR (lk): 0.839550
+2026-04-19 12:36:21,195 - INFO -     ALL test MR (lk): 153.119807
+2026-04-19 12:36:21,195 - INFO -     ALL test Hits (lk) @ 1: 0.828997
+2026-04-19 12:36:21,195 - INFO -     ALL test Hits (lk) @ 3: 0.843236
+2026-04-19 12:36:21,195 - INFO -     ALL test Hits (lk) @ 10: 0.857527
+2026-04-19 12:36:21,195 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:36:21,196 - INFO -     Subject test MRR (lk): 0.892790
+2026-04-19 12:36:21,196 - INFO -     Subject test MR (lk): 130.236029
+2026-04-19 12:36:21,196 - INFO -     Subject test Hits (lk) @ 1: 0.887722
+2026-04-19 12:36:21,196 - INFO -     Subject test Hits (lk) @ 3: 0.893715
+2026-04-19 12:36:21,196 - INFO -     Subject test Hits (lk) @ 10: 0.900476
+2026-04-19 12:36:21,197 - INFO -     Object test MRR (lk): 0.888350
+2026-04-19 12:36:21,197 - INFO -     Object test MR (lk): 152.890181
+2026-04-19 12:36:21,197 - INFO -     Object test Hits (lk) @ 1: 0.886288
+2026-04-19 12:36:21,197 - INFO -     Object test Hits (lk) @ 3: 0.887671
+2026-04-19 12:36:21,197 - INFO -     Object test Hits (lk) @ 10: 0.891103
+2026-04-19 12:36:21,198 - INFO -     ALL test MRR (lk): 0.890570
+2026-04-19 12:36:21,198 - INFO -     ALL test MR (lk): 141.563105
+2026-04-19 12:36:21,198 - INFO -     ALL test Hits (lk) @ 1: 0.887005
+2026-04-19 12:36:21,198 - INFO -     ALL test Hits (lk) @ 3: 0.890693
+2026-04-19 12:36:21,198 - INFO -     ALL test Hits (lk) @ 10: 0.895790
+2026-04-19 12:36:21,213 - INFO -   Model improved! Best MRR = 0.890570
+2026-04-19 12:36:21,215 - INFO - Epoch 16/30
+2026-04-19 12:36:27,930 - INFO - [TRAIN] Epoch 16: Loss = 5.614056 (Time: 6.71s)
+2026-04-19 12:36:27,949 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:36:27,950 - INFO - Epoch 17/30
+2026-04-19 12:36:34,747 - INFO - [TRAIN] Epoch 17: Loss = 5.610441 (Time: 6.80s)
+2026-04-19 12:36:34,767 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:36:34,767 - INFO - Epoch 18/30
+2026-04-19 12:36:41,751 - INFO - [TRAIN] Epoch 18: Loss = 5.607332 (Time: 6.98s)
+2026-04-19 12:36:41,770 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:36:41,771 - INFO - Epoch 19/30
+2026-04-19 12:36:48,694 - INFO - [TRAIN] Epoch 19: Loss = 5.604344 (Time: 6.92s)
+2026-04-19 12:36:48,713 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:36:48,713 - INFO - Epoch 20/30
+2026-04-19 12:36:55,653 - INFO - [TRAIN] Epoch 20: Loss = 5.601782 (Time: 6.94s)
+2026-04-19 12:36:55,672 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:36:55,673 - INFO - [VALIDATION] Epoch 20
+2026-04-19 12:38:31,973 - INFO -   [No Oracle Filtering]
+2026-04-19 12:38:31,975 - INFO -     Subject test MRR (lk): 0.839111
+2026-04-19 12:38:31,975 - INFO -     Subject test MR (lk): 140.437638
+2026-04-19 12:38:31,975 - INFO -     Subject test Hits (lk) @ 1: 0.825129
+2026-04-19 12:38:31,975 - INFO -     Subject test Hits (lk) @ 3: 0.844184
+2026-04-19 12:38:31,975 - INFO -     Subject test Hits (lk) @ 10: 0.864672
+2026-04-19 12:38:31,976 - INFO -     Object test MRR (lk): 0.833328
+2026-04-19 12:38:31,976 - INFO -     Object test MR (lk): 165.804385
+2026-04-19 12:38:31,976 - INFO -     Object test Hits (lk) @ 1: 0.824054
+2026-04-19 12:38:31,976 - INFO -     Object test Hits (lk) @ 3: 0.836347
+2026-04-19 12:38:31,976 - INFO -     Object test Hits (lk) @ 10: 0.848538
+2026-04-19 12:38:31,978 - INFO -     ALL test MRR (lk): 0.836219
+2026-04-19 12:38:31,978 - INFO -     ALL test MR (lk): 153.121011
+2026-04-19 12:38:31,978 - INFO -     ALL test Hits (lk) @ 1: 0.824592
+2026-04-19 12:38:31,978 - INFO -     ALL test Hits (lk) @ 3: 0.840265
+2026-04-19 12:38:31,978 - INFO -     ALL test Hits (lk) @ 10: 0.856605
+2026-04-19 12:38:31,978 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:38:31,980 - INFO -     Subject test MRR (lk): 0.893279
+2026-04-19 12:38:31,980 - INFO -     Subject test MR (lk): 131.017979
+2026-04-19 12:38:31,980 - INFO -     Subject test Hits (lk) @ 1: 0.887876
+2026-04-19 12:38:31,980 - INFO -     Subject test Hits (lk) @ 3: 0.894535
+2026-04-19 12:38:31,980 - INFO -     Subject test Hits (lk) @ 10: 0.901859
+2026-04-19 12:38:31,982 - INFO -     Object test MRR (lk): 0.888857
+2026-04-19 12:38:31,982 - INFO -     Object test MR (lk): 154.620038
+2026-04-19 12:38:31,982 - INFO -     Object test Hits (lk) @ 1: 0.886647
+2026-04-19 12:38:31,982 - INFO -     Object test Hits (lk) @ 3: 0.888132
+2026-04-19 12:38:31,982 - INFO -     Object test Hits (lk) @ 10: 0.892178
+2026-04-19 12:38:31,984 - INFO -     ALL test MRR (lk): 0.891068
+2026-04-19 12:38:31,984 - INFO -     ALL test MR (lk): 142.819008
+2026-04-19 12:38:31,984 - INFO -     ALL test Hits (lk) @ 1: 0.887261
+2026-04-19 12:38:31,984 - INFO -     ALL test Hits (lk) @ 3: 0.891333
+2026-04-19 12:38:31,984 - INFO -     ALL test Hits (lk) @ 10: 0.897019
+2026-04-19 12:38:32,008 - INFO -   Model improved! Best MRR = 0.891068
+2026-04-19 12:38:32,012 - INFO - Epoch 21/30
+2026-04-19 12:38:39,995 - INFO - [TRAIN] Epoch 21: Loss = 5.599501 (Time: 7.98s)
+2026-04-19 12:38:40,015 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:38:40,015 - INFO - Epoch 22/30
+2026-04-19 12:38:48,585 - INFO - [TRAIN] Epoch 22: Loss = 5.597331 (Time: 8.57s)
+2026-04-19 12:38:48,607 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:38:48,607 - INFO - Epoch 23/30
+2026-04-19 12:38:56,801 - INFO - [TRAIN] Epoch 23: Loss = 5.595550 (Time: 8.19s)
+2026-04-19 12:38:56,823 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:38:56,824 - INFO - Epoch 24/30
+2026-04-19 12:39:04,536 - INFO - [TRAIN] Epoch 24: Loss = 5.593758 (Time: 7.71s)
+2026-04-19 12:39:04,555 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:39:04,555 - INFO - Epoch 25/30
+2026-04-19 12:39:11,905 - INFO - [TRAIN] Epoch 25: Loss = 5.592072 (Time: 7.35s)
+2026-04-19 12:39:11,925 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:39:11,926 - INFO - [VALIDATION] Epoch 25
+2026-04-19 12:40:54,003 - INFO -   [No Oracle Filtering]
+2026-04-19 12:40:54,004 - INFO -     Subject test MRR (lk): 0.835963
+2026-04-19 12:40:54,004 - INFO -     Subject test MR (lk): 143.040337
+2026-04-19 12:40:54,004 - INFO -     Subject test Hits (lk) @ 1: 0.820622
+2026-04-19 12:40:54,004 - INFO -     Subject test Hits (lk) @ 3: 0.841674
+2026-04-19 12:40:54,005 - INFO -     Subject test Hits (lk) @ 10: 0.863853
+2026-04-19 12:40:54,006 - INFO -     Object test MRR (lk): 0.831852
+2026-04-19 12:40:54,006 - INFO -     Object test MR (lk): 165.042181
+2026-04-19 12:40:54,006 - INFO -     Object test Hits (lk) @ 1: 0.822158
+2026-04-19 12:40:54,006 - INFO -     Object test Hits (lk) @ 3: 0.834452
+2026-04-19 12:40:54,006 - INFO -     Object test Hits (lk) @ 10: 0.848486
+2026-04-19 12:40:54,008 - INFO -     ALL test MRR (lk): 0.833908
+2026-04-19 12:40:54,008 - INFO -     ALL test MR (lk): 154.041259
+2026-04-19 12:40:54,008 - INFO -     ALL test Hits (lk) @ 1: 0.821390
+2026-04-19 12:40:54,008 - INFO -     ALL test Hits (lk) @ 3: 0.838063
+2026-04-19 12:40:54,008 - INFO -     ALL test Hits (lk) @ 10: 0.856170
+2026-04-19 12:40:54,008 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:40:54,009 - INFO -     Subject test MRR (lk): 0.893541
+2026-04-19 12:40:54,009 - INFO -     Subject test MR (lk): 134.347667
+2026-04-19 12:40:54,009 - INFO -     Subject test Hits (lk) @ 1: 0.887722
+2026-04-19 12:40:54,009 - INFO -     Subject test Hits (lk) @ 3: 0.894791
+2026-04-19 12:40:54,009 - INFO -     Subject test Hits (lk) @ 10: 0.902884
+2026-04-19 12:40:54,010 - INFO -     Object test MRR (lk): 0.889322
+2026-04-19 12:40:54,010 - INFO -     Object test MR (lk): 154.513676
+2026-04-19 12:40:54,011 - INFO -     Object test Hits (lk) @ 1: 0.887108
+2026-04-19 12:40:54,011 - INFO -     Object test Hits (lk) @ 3: 0.888542
+2026-04-19 12:40:54,011 - INFO -     Object test Hits (lk) @ 10: 0.892230
+2026-04-19 12:40:54,013 - INFO -     ALL test MRR (lk): 0.891432
+2026-04-19 12:40:54,013 - INFO -     ALL test MR (lk): 144.430672
+2026-04-19 12:40:54,013 - INFO -     ALL test Hits (lk) @ 1: 0.887415
+2026-04-19 12:40:54,013 - INFO -     ALL test Hits (lk) @ 3: 0.891666
+2026-04-19 12:40:54,013 - INFO -     ALL test Hits (lk) @ 10: 0.897557
+2026-04-19 12:40:54,029 - INFO -   Model improved! Best MRR = 0.891432
+2026-04-19 12:40:54,032 - INFO - Epoch 26/30
+2026-04-19 12:41:01,566 - INFO - [TRAIN] Epoch 26: Loss = 5.590741 (Time: 7.53s)
+2026-04-19 12:41:01,585 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:41:01,585 - INFO - Epoch 27/30
+2026-04-19 12:41:09,349 - INFO - [TRAIN] Epoch 27: Loss = 5.589447 (Time: 7.76s)
+2026-04-19 12:41:09,368 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:41:09,368 - INFO - Epoch 28/30
+2026-04-19 12:41:16,351 - INFO - [TRAIN] Epoch 28: Loss = 5.588350 (Time: 6.98s)
+2026-04-19 12:41:16,370 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:41:16,370 - INFO - Epoch 29/30
+2026-04-19 12:41:24,597 - INFO - [TRAIN] Epoch 29: Loss = 5.587160 (Time: 8.23s)
+2026-04-19 12:41:24,616 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:41:24,616 - INFO - Epoch 30/30
+2026-04-19 12:41:32,238 - INFO - [TRAIN] Epoch 30: Loss = 5.586163 (Time: 7.62s)
+2026-04-19 12:41:32,257 - INFO - [VRAM] Peak: 0.13GB | Reserved: 0.19GB
+2026-04-19 12:41:32,257 - INFO - [VALIDATION] Epoch 30
+2026-04-19 12:43:11,216 - INFO -   [No Oracle Filtering]
+2026-04-19 12:43:11,217 - INFO -     Subject test MRR (lk): 0.833535
+2026-04-19 12:43:11,217 - INFO -     Subject test MR (lk): 143.597372
+2026-04-19 12:43:11,217 - INFO -     Subject test Hits (lk) @ 1: 0.818112
+2026-04-19 12:43:11,217 - INFO -     Subject test Hits (lk) @ 3: 0.839062
+2026-04-19 12:43:11,217 - INFO -     Subject test Hits (lk) @ 10: 0.861855
+2026-04-19 12:43:11,219 - INFO -     Object test MRR (lk): 0.829384
+2026-04-19 12:43:11,219 - INFO -     Object test MR (lk): 167.187369
+2026-04-19 12:43:11,219 - INFO -     Object test Hits (lk) @ 1: 0.819136
+2026-04-19 12:43:11,219 - INFO -     Object test Hits (lk) @ 3: 0.831993
+2026-04-19 12:43:11,219 - INFO -     Object test Hits (lk) @ 10: 0.846335
+2026-04-19 12:43:11,221 - INFO -     ALL test MRR (lk): 0.831460
+2026-04-19 12:43:11,221 - INFO -     ALL test MR (lk): 155.392371
+2026-04-19 12:43:11,221 - INFO -     ALL test Hits (lk) @ 1: 0.818624
+2026-04-19 12:43:11,221 - INFO -     ALL test Hits (lk) @ 3: 0.835527
+2026-04-19 12:43:11,221 - INFO -     ALL test Hits (lk) @ 10: 0.854095
+2026-04-19 12:43:11,221 - INFO -   [Ground Truth Oracle]
+2026-04-19 12:43:11,222 - INFO -     Subject test MRR (lk): 0.893313
+2026-04-19 12:43:11,222 - INFO -     Subject test MR (lk): 135.412513
+2026-04-19 12:43:11,222 - INFO -     Subject test Hits (lk) @ 1: 0.887210
+2026-04-19 12:43:11,222 - INFO -     Subject test Hits (lk) @ 3: 0.894996
+2026-04-19 12:43:11,222 - INFO -     Subject test Hits (lk) @ 10: 0.902628
+2026-04-19 12:43:11,223 - INFO -     Object test MRR (lk): 0.889070
+2026-04-19 12:43:11,223 - INFO -     Object test MR (lk): 157.072069
+2026-04-19 12:43:11,223 - INFO -     Object test Hits (lk) @ 1: 0.886442
+2026-04-19 12:43:11,224 - INFO -     Object test Hits (lk) @ 3: 0.888644
+2026-04-19 12:43:11,224 - INFO -     Object test Hits (lk) @ 10: 0.892639
+2026-04-19 12:43:11,225 - INFO -     ALL test MRR (lk): 0.891192
+2026-04-19 12:43:11,225 - INFO -     ALL test MR (lk): 146.242291
+2026-04-19 12:43:11,225 - INFO -     ALL test Hits (lk) @ 1: 0.886826
+2026-04-19 12:43:11,225 - INFO -     ALL test Hits (lk) @ 3: 0.891820
+2026-04-19 12:43:11,226 - INFO -     ALL test Hits (lk) @ 10: 0.897634
+2026-04-19 12:43:11,226 - INFO -   No improvement (Best: 0.891432 | Current: 0.891192)
+2026-04-19 12:43:11,228 - INFO - Training completed!
+2026-04-19 12:43:11,246 - INFO - [ORACLE TRAINING PHASE]
+2026-04-19 12:43:11,246 - INFO - Starting Oracle training...
+2026-04-19 12:43:16,451 - INFO - [ORACLE] Epoch 1: Loss = 45.947740 (Time: 5.20s)
+2026-04-19 12:43:21,609 - INFO - [ORACLE] Epoch 2: Loss = 5.626783 (Time: 5.16s)
+2026-04-19 12:43:26,891 - INFO - [ORACLE] Epoch 3: Loss = 4.571079 (Time: 5.28s)
+2026-04-19 12:43:32,228 - INFO - [ORACLE] Epoch 4: Loss = 3.603895 (Time: 5.34s)
+2026-04-19 12:43:37,214 - INFO - [ORACLE] Epoch 5: Loss = 2.648222 (Time: 4.99s)
+2026-04-19 12:43:42,055 - INFO - [ORACLE] Epoch 6: Loss = 1.686527 (Time: 4.84s)
+2026-04-19 12:43:46,957 - INFO - [ORACLE] Epoch 7: Loss = 0.894328 (Time: 4.90s)
+2026-04-19 12:43:51,743 - INFO - [ORACLE] Epoch 8: Loss = 0.749106 (Time: 4.79s)
+2026-04-19 12:43:56,515 - INFO - [ORACLE] Epoch 9: Loss = 0.725860 (Time: 4.77s)
+2026-04-19 12:44:01,321 - INFO - [ORACLE] Epoch 10: Loss = 0.728426 (Time: 4.81s)
+2026-04-19 12:44:06,326 - INFO - [ORACLE] Epoch 11: Loss = 0.704910 (Time: 5.00s)
+2026-04-19 12:44:11,154 - INFO - [ORACLE] Epoch 12: Loss = 0.726703 (Time: 4.83s)
+2026-04-19 12:44:16,045 - INFO - [ORACLE] Epoch 13: Loss = 0.705626 (Time: 4.89s)
+2026-04-19 12:44:20,854 - INFO - [ORACLE] Epoch 14: Loss = 0.699372 (Time: 4.81s)
+2026-04-19 12:44:25,535 - INFO - [ORACLE] Epoch 15: Loss = 0.716624 (Time: 4.68s)
+2026-04-19 12:44:30,491 - INFO - [ORACLE] Epoch 16: Loss = 0.706607 (Time: 4.96s)
+2026-04-19 12:44:35,502 - INFO - [ORACLE] Epoch 17: Loss = 0.703980 (Time: 5.01s)
+2026-04-19 12:44:40,375 - INFO - [ORACLE] Epoch 18: Loss = 0.705715 (Time: 4.87s)
+2026-04-19 12:44:45,247 - INFO - [ORACLE] Epoch 19: Loss = 0.698918 (Time: 4.87s)
+2026-04-19 12:44:50,757 - INFO - [ORACLE] Epoch 20: Loss = 0.704501 (Time: 5.51s)
+2026-04-19 12:44:50,757 - INFO - Oracle training completed!
+2026-04-19 12:44:50,779 - INFO - [TEST PHASE]
+2026-04-19 12:44:50,779 - INFO - Testing starts...
+2026-04-19 12:46:35,739 - INFO - Test Results (Oracle):
+2026-04-19 12:46:35,740 - INFO -     Subject test MRR (lk): 0.843165
+2026-04-19 12:46:35,740 - INFO -     Subject test MR (lk): 737.487242
+2026-04-19 12:46:35,741 - INFO -     Subject test Hits (lk) @ 1: 0.840358
+2026-04-19 12:46:35,741 - INFO -     Subject test Hits (lk) @ 3: 0.845001
+2026-04-19 12:46:35,741 - INFO -     Subject test Hits (lk) @ 10: 0.847049
+2026-04-19 12:46:35,742 - INFO -     Object test MRR (lk): 0.839103
+2026-04-19 12:46:35,742 - INFO -     Object test MR (lk): 798.642015
+2026-04-19 12:46:35,742 - INFO -     Object test Hits (lk) @ 1: 0.838560
+2026-04-19 12:46:35,742 - INFO -     Object test Hits (lk) @ 3: 0.839309
+2026-04-19 12:46:35,742 - INFO -     Object test Hits (lk) @ 10: 0.839708
+2026-04-19 12:46:35,744 - INFO -     ALL test MRR (lk): 0.841134
+2026-04-19 12:46:35,744 - INFO -     ALL test MR (lk): 768.064628
+2026-04-19 12:46:35,744 - INFO -     ALL test Hits (lk) @ 1: 0.839459
+2026-04-19 12:46:35,744 - INFO -     ALL test Hits (lk) @ 3: 0.842155
+2026-04-19 12:46:35,744 - INFO -     ALL test Hits (lk) @ 10: 0.843379
+2026-04-19 12:46:35,744 - INFO - Testing completed! (Time: 104.96s)

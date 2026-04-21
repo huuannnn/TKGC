@@ -1,15 +1,11 @@
-import argparse
 import numpy as np
 import torch
-import pickle
-import time
-import datetime
-import os
-import random
 from tqdm import tqdm
 import utils
-from cenet_model import CENET
 from core import TKGDataLoader
+
+# Cache for converted tensors to avoid repeated numpy→torch conversion
+_total_data_cache = {}
 
 def execute_valid(args, total_data, model,
                   data,
@@ -27,7 +23,12 @@ def execute_valid(args, total_data, model,
     batch_count = 0
     
     device = next(model.parameters()).device
-    total_data = torch.from_numpy(total_data).to(device)
+    
+    # Use cached tensor to avoid repeated conversion
+    cache_key = (id(total_data), str(device))
+    if cache_key not in _total_data_cache:
+        _total_data_cache[cache_key] = torch.from_numpy(total_data).to(device)
+    total_data_tensor = _total_data_cache[cache_key]
     
     valid_loader = TKGDataLoader(data, s_history, o_history, 
                                  s_label, o_label, 
@@ -49,7 +50,7 @@ def execute_valid(args, total_data, model,
         with torch.no_grad():
             _, _, _, \
             sub_rank2, obj_rank2, cur_loss2, \
-            sub_rank3, obj_rank3, cur_loss3, ce_all_acc = model(batch_data, 'Valid', total_data)
+            sub_rank3, obj_rank3, cur_loss3, ce_all_acc = model(batch_data, 'Valid', total_data_tensor)
 
             s_ranks2 += sub_rank2
             o_ranks2 += obj_rank2
@@ -65,6 +66,5 @@ def execute_valid(args, total_data, model,
             total_loss3 += cur_loss3.item() if hasattr(cur_loss3, 'item') else cur_loss3
             batch_count += 1
     
-    pbar.close()
     avg_loss = (total_loss2 + total_loss3) / 2.0 / batch_count if batch_count > 0 else 0
     return s_ranks2, o_ranks2, all_ranks2, s_ranks3, o_ranks3, all_ranks3, avg_loss
