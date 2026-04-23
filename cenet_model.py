@@ -76,39 +76,37 @@ class CENET(nn.Module):
     def weights_init(m):
         if isinstance(m, nn.Linear):
             torch.nn.init.xavier_uniform_(m.weight, gain=nn.init.calculate_gain('relu'))
+            
+    def history_and_non_history_depedency(self, s_frequency, o_frequency, lambdax):
+        s_history_tag = copy.deepcopy(s_frequency)
+        o_history_tag = copy.deepcopy(o_frequency)
+        s_non_history_tag = copy.deepcopy(s_frequency)
+        o_non_history_tag = copy.deepcopy(o_frequency)
+
+        s_history_tag[s_history_tag != 0] = lambdax
+        o_history_tag[o_history_tag != 0] = lambdax
+
+        s_non_history_tag[s_history_tag == 1] = -lambdax
+        s_non_history_tag[s_history_tag == 0] = lambdax
+
+        o_non_history_tag[o_history_tag == 1] = -lambdax
+        o_non_history_tag[o_history_tag == 0] = lambdax
+
+        s_history_tag[s_history_tag == 0] = -lambdax
+        o_history_tag[o_history_tag == 0] = -lambdax
+
+        return s_history_tag, o_history_tag, s_non_history_tag, o_non_history_tag
 
     def forward(self, batch_block, mode_lk, total_data=None):
         quadruples, s_history_event_o, o_history_event_s, \
         s_history_label_true, o_history_label_true, s_frequency, o_frequency = batch_block
 
         if isListEmpty(s_history_event_o) or isListEmpty(o_history_event_s):
-            if mode_lk == 'Training':
-                return None
-            elif mode_lk in ['Valid', 'Test']:
-                return None, None
-            else:
-                return None
+            return (None, None) if mode_lk in ['Valid', 'Test'] else None
 
-        s = quadruples[:, 0]
-        r = quadruples[:, 1]
-        o = quadruples[:, 2]
-
-        s_history_tag = copy.deepcopy(s_frequency)
-        o_history_tag = copy.deepcopy(o_frequency)
-        s_non_history_tag = copy.deepcopy(s_frequency)
-        o_non_history_tag = copy.deepcopy(o_frequency)
-
-        s_history_tag[s_history_tag != 0] = self.lambdax
-        o_history_tag[o_history_tag != 0] = self.lambdax
-
-        s_non_history_tag[s_history_tag == 1] = -self.lambdax
-        s_non_history_tag[s_history_tag == 0] = self.lambdax
-
-        o_non_history_tag[o_history_tag == 1] = -self.lambdax
-        o_non_history_tag[o_history_tag == 0] = self.lambdax
-
-        s_history_tag[s_history_tag == 0] = -self.lambdax
-        o_history_tag[o_history_tag == 0] = -self.lambdax
+        s, r, o = quadruples[:, :3].T
+        s_history_tag, o_history_tag,\
+            s_non_history_tag, o_non_history_tag = self.history_and_non_history_depedency(s_frequency, o_frequency, self.lambdax)
 
         s_frequency = F.softmax(s_frequency, dim=1)
         o_frequency = F.softmax(o_frequency, dim=1)
