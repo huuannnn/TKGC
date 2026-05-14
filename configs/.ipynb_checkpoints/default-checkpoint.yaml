@@ -8,9 +8,9 @@ seed: 987
 
 # Training arguments
 batch_size: 1024
-max_epochs: 30
-oracle_epochs: 20
-valid_epochs: 5
+max_epochs: 1
+oracle_epochs: 1
+valid_epochs: 1
 
 # Model arguments
 embedding_dim: 200

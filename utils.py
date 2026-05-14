@@ -188,3 +188,33 @@ def write2file_to_logger(s_ranks, o_ranks, all_ranks, logger):
         logger.write("    ALL test Hits (lk) @ {}: {:.6f}".format(hit, avg_count_all_lk))
     
     return all_mrr_lk
+
+def get_configs(dataset_name, model_config_default, training_config_default, system_config_default, dataset_configs):
+    """Get merged configurations for a dataset
+    
+    Args:
+        dataset_name: Name of the dataset
+        model_config_default: Default model configuration dict
+        training_config_default: Default training configuration dict
+        system_config_default: Default system configuration dict
+        dataset_configs: Dataset-specific configurations dict
+        
+    Returns:
+        Tuple of (model_config, training_config, system_config)
+    """
+    model_config = model_config_default.copy()
+    training_config = training_config_default.copy()
+    system_config = system_config_default.copy()
+    
+    # Apply dataset-specific overrides
+    if dataset_name in dataset_configs:
+        dataset_config = dataset_configs[dataset_name]
+        system_config['dataset'] = dataset_config.get('dataset', dataset_name)
+        
+        # Apply model config overrides if present
+        if 'model' in dataset_config:
+            model_config.update(dataset_config['model'])
+    else:
+        system_config['dataset'] = dataset_name
+    
+    return model_config, training_config, system_config
