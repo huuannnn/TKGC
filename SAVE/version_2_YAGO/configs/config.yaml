@@ -1,0 +1,25 @@
+model:
+  alpha: 0.2
+  dropout: 0.5
+  embedding_dim: 200
+  filtering: true
+  lambdax: 2
+  oracle_mode: hard
+system:
+  dataset: YAGO
+  gpu_id: '0'
+  model_dir: ''
+  only_eva: false
+  only_oracle: false
+  save_dir: SAVE
+  use_cuda: true
+training:
+  batch_size: 1024
+  lr: 0.001
+  max_epochs: 30
+  oracle_epochs: 20
+  oracle_lr: 0.001
+  seed: 987
+  use_seed: true
+  valid_epochs: 5
+  weight_decay: 1.0e-05
