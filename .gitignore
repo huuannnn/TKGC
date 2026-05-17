@@ -61,3 +61,4 @@ venv.bak/
 # Jupyter Notebooks - Cache only
 # ============================================
 .ipynb_checkpoints/
+**/.ipynb_checkpoints/
