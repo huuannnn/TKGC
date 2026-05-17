@@ -10,7 +10,7 @@ import torch
 
 import utils
 from evaluators import evaluation, valid
-from cenet_model import CENET
+from models import CENET
 from dataset import TKGDataset
 from training import Trainer, OracleTrainer, Logger
 
