@@ -6,7 +6,7 @@ from tqdm import tqdm
 from dataset import TKGDataLoader
 from training.logger import Logger
 import utils
-import valid
+from evaluators import valid
 
 
 class Trainer:

@@ -1,0 +1,95 @@
+2026-05-17 06:36:46,388 - INFO - Model Configuration:
+2026-05-17 06:36:46,388 - INFO -   alpha                = 0.2
+2026-05-17 06:36:46,388 - INFO -   dropout              = 0.5
+2026-05-17 06:36:46,388 - INFO -   embedding_dim        = 200
+2026-05-17 06:36:46,388 - INFO -   filtering            = True
+2026-05-17 06:36:46,388 - INFO -   lambdax              = 2
+2026-05-17 06:36:46,388 - INFO -   oracle_mode          = hard
+2026-05-17 06:36:46,388 - INFO - Training Configuration:
+2026-05-17 06:36:46,388 - INFO -   batch_size           = 1024
+2026-05-17 06:36:46,388 - INFO -   dataset_name         = YAGO
+2026-05-17 06:36:46,388 - INFO -   lr                   = 0.001
+2026-05-17 06:36:46,388 - INFO -   max_epochs           = 1
+2026-05-17 06:36:46,388 - INFO -   oracle_epochs        = 1
+2026-05-17 06:36:46,388 - INFO -   oracle_lr            = 0.001
+2026-05-17 06:36:46,388 - INFO -   seed                 = 987
+2026-05-17 06:36:46,388 - INFO -   use_seed             = True
+2026-05-17 06:36:46,388 - INFO -   valid_epochs         = 1
+2026-05-17 06:36:46,388 - INFO -   weight_decay         = 1e-05
+2026-05-17 06:36:46,388 - INFO - System Configuration:
+2026-05-17 06:36:46,388 - INFO -   dataset              = YAGO
+2026-05-17 06:36:46,388 - INFO -   gpu_id               = 0
+2026-05-17 06:36:46,388 - INFO -   model_dir            = 
+2026-05-17 06:36:46,388 - INFO -   only_eva             = False
+2026-05-17 06:36:46,388 - INFO -   only_oracle          = False
+2026-05-17 06:36:46,388 - INFO -   save_dir             = SAVE
+2026-05-17 06:36:46,388 - INFO -   use_cuda             = True
+2026-05-17 06:36:46,388 - INFO - 
+2026-05-17 06:36:46,388 - INFO - Model Information:
+2026-05-17 06:36:46,388 - INFO -   Total Parameters: 5,056,801
+2026-05-17 06:36:46,388 - INFO -   Trainable Parameters: 5,056,801
+2026-05-17 06:36:46,411 - INFO -   GPU Memory Reserved:  0.15 GB
+2026-05-17 06:36:46,411 - INFO -   GPU Memory Allocated: 0.08 GB
+2026-05-17 06:36:46,411 - INFO -   GPU Memory Peak:      0.08 GB
+2026-05-17 06:36:46,411 - INFO - Epoch 1/1
+2026-05-17 06:36:50,646 - INFO - [TRAIN] Epoch 1: Loss = 5.923944 (Time: 4.23s)
+2026-05-17 06:36:50,659 - INFO - [VRAM] Peak: 0.20GB | Reserved: 0.23GB
+2026-05-17 06:36:50,659 - INFO - [VALIDATION] Epoch 1
+2026-05-17 06:36:54,406 - INFO -   [No Oracle Filtering]
+2026-05-17 06:36:54,407 - INFO -     Subject test MRR (lk): 0.816529
+2026-05-17 06:36:54,407 - INFO -     Subject test MR (lk): 224.699022
+2026-05-17 06:36:54,407 - INFO -     Subject test Hits (lk) @ 1: 0.802284
+2026-05-17 06:36:54,407 - INFO -     Subject test Hits (lk) @ 3: 0.821185
+2026-05-17 06:36:54,407 - INFO -     Subject test Hits (lk) @ 10: 0.842340
+2026-05-17 06:36:54,407 - INFO -     Object test MRR (lk): 0.828373
+2026-05-17 06:36:54,407 - INFO -     Object test MR (lk): 274.914229
+2026-05-17 06:36:54,407 - INFO -     Object test Hits (lk) @ 1: 0.822005
+2026-05-17 06:36:54,407 - INFO -     Object test Hits (lk) @ 3: 0.829586
+2026-05-17 06:36:54,407 - INFO -     Object test Hits (lk) @ 10: 0.838601
+2026-05-17 06:36:54,408 - INFO -     ALL test MRR (lk): 0.822451
+2026-05-17 06:36:54,408 - INFO -     ALL test MR (lk): 249.806626
+2026-05-17 06:36:54,408 - INFO -     ALL test Hits (lk) @ 1: 0.812145
+2026-05-17 06:36:54,408 - INFO -     ALL test Hits (lk) @ 3: 0.825385
+2026-05-17 06:36:54,408 - INFO -     ALL test Hits (lk) @ 10: 0.840470
+2026-05-17 06:36:54,408 - INFO -   [Ground Truth Oracle]
+2026-05-17 06:36:54,409 - INFO -     Subject test MRR (lk): 0.891488
+2026-05-17 06:36:54,409 - INFO -     Subject test MR (lk): 213.544896
+2026-05-17 06:36:54,409 - INFO -     Subject test Hits (lk) @ 1: 0.888439
+2026-05-17 06:36:54,409 - INFO -     Subject test Hits (lk) @ 3: 0.891820
+2026-05-17 06:36:54,409 - INFO -     Subject test Hits (lk) @ 10: 0.896532
+2026-05-17 06:36:54,409 - INFO -     Object test MRR (lk): 0.886704
+2026-05-17 06:36:54,409 - INFO -     Object test MR (lk): 264.687420
+2026-05-17 06:36:54,409 - INFO -     Object test Hits (lk) @ 1: 0.885622
+2026-05-17 06:36:54,409 - INFO -     Object test Hits (lk) @ 3: 0.886339
+2026-05-17 06:36:54,410 - INFO -     Object test Hits (lk) @ 10: 0.888081
+2026-05-17 06:36:54,410 - INFO -     ALL test MRR (lk): 0.889096
+2026-05-17 06:36:54,410 - INFO -     ALL test MR (lk): 239.116158
+2026-05-17 06:36:54,410 - INFO -     ALL test Hits (lk) @ 1: 0.887031
+2026-05-17 06:36:54,410 - INFO -     ALL test Hits (lk) @ 3: 0.889080
+2026-05-17 06:36:54,410 - INFO -     ALL test Hits (lk) @ 10: 0.892307
+2026-05-17 06:36:54,425 - INFO -   Model improved! Best MRR = 0.889096
+2026-05-17 06:36:54,425 - INFO - Training completed!
+2026-05-17 06:36:54,471 - INFO - [ORACLE TRAINING PHASE]
+2026-05-17 06:36:54,471 - INFO - Starting Oracle training...
+2026-05-17 06:36:58,061 - INFO - [ORACLE] Epoch 1: Loss = 46.836979 (Time: 3.30s)
+2026-05-17 06:36:58,061 - INFO - Oracle training completed!
+2026-05-17 06:36:58,092 - INFO - [TEST PHASE]
+2026-05-17 06:36:58,092 - INFO - Testing starts...
+2026-05-17 06:37:02,094 - INFO - Test Results (Oracle):
+2026-05-17 06:37:02,095 - INFO -     Subject test MRR (lk): 0.798683
+2026-05-17 06:37:02,095 - INFO -     Subject test MR (lk): 1158.670079
+2026-05-17 06:37:02,095 - INFO -     Subject test Hits (lk) @ 1: 0.797413
+2026-05-17 06:37:02,095 - INFO -     Subject test Hits (lk) @ 3: 0.798911
+2026-05-17 06:37:02,095 - INFO -     Subject test Hits (lk) @ 10: 0.800509
+2026-05-17 06:37:02,096 - INFO -     Object test MRR (lk): 0.841875
+2026-05-17 06:37:02,096 - INFO -     Object test MR (lk): 793.941776
+2026-05-17 06:37:02,096 - INFO -     Object test Hits (lk) @ 1: 0.841656
+2026-05-17 06:37:02,096 - INFO -     Object test Hits (lk) @ 3: 0.842005
+2026-05-17 06:37:02,096 - INFO -     Object test Hits (lk) @ 10: 0.842005
+2026-05-17 06:37:02,097 - INFO -     ALL test MRR (lk): 0.820279
+2026-05-17 06:37:02,097 - INFO -     ALL test MR (lk): 976.305927
+2026-05-17 06:37:02,097 - INFO -     ALL test Hits (lk) @ 1: 0.819535
+2026-05-17 06:37:02,097 - INFO -     ALL test Hits (lk) @ 3: 0.820458
+2026-05-17 06:37:02,097 - INFO -     ALL test Hits (lk) @ 10: 0.821257
+2026-05-17 06:37:02,097 - INFO - Avg Loss: 3.358639
+2026-05-17 06:37:02,097 - INFO - Testing completed! (Time: 4.00s)

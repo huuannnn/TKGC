@@ -9,8 +9,7 @@ import numpy as np
 import torch
 
 import utils
-import evaluation
-import valid
+from evaluators import evaluation, valid
 from cenet_model import CENET
 from dataset import TKGDataset
 from training import Trainer, OracleTrainer, Logger
