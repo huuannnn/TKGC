@@ -1,0 +1,49 @@
+2026-05-22 01:22:07,545 - INFO - Model Configuration:
+2026-05-22 01:22:07,545 - INFO -   alpha                = 0.2
+2026-05-22 01:22:07,545 - INFO -   dropout              = 0.5
+2026-05-22 01:22:07,545 - INFO -   embedding_dim        = 200
+2026-05-22 01:22:07,545 - INFO -   filtering            = True
+2026-05-22 01:22:07,545 - INFO -   lambdax              = 2
+2026-05-22 01:22:07,545 - INFO -   oracle_mode          = hard
+2026-05-22 01:22:07,545 - INFO - Training Configuration:
+2026-05-22 01:22:07,545 - INFO -   batch_size           = 1024
+2026-05-22 01:22:07,545 - INFO -   dataset_name         = YAGO
+2026-05-22 01:22:07,545 - INFO -   lr                   = 0.001
+2026-05-22 01:22:07,545 - INFO -   max_epochs           = 30
+2026-05-22 01:22:07,545 - INFO -   oracle_epochs        = 20
+2026-05-22 01:22:07,546 - INFO -   oracle_lr            = 0.001
+2026-05-22 01:22:07,546 - INFO -   seed                 = 987
+2026-05-22 01:22:07,546 - INFO -   use_seed             = True
+2026-05-22 01:22:07,546 - INFO -   valid_epochs         = 5
+2026-05-22 01:22:07,546 - INFO -   weight_decay         = 1e-05
+2026-05-22 01:22:07,546 - INFO - System Configuration:
+2026-05-22 01:22:07,546 - INFO -   dataset              = YAGO
+2026-05-22 01:22:07,546 - INFO -   gpu_id               = 0
+2026-05-22 01:22:07,546 - INFO -   model_dir            = 
+2026-05-22 01:22:07,546 - INFO -   only_eva             = False
+2026-05-22 01:22:07,546 - INFO -   only_oracle          = False
+2026-05-22 01:22:07,546 - INFO -   save_dir             = SAVE
+2026-05-22 01:22:07,546 - INFO -   use_cuda             = True
+2026-05-22 01:22:07,546 - INFO - 
+2026-05-22 01:22:07,546 - INFO - Model Information:
+2026-05-22 01:22:07,546 - INFO -   Total Parameters: 5,056,801
+2026-05-22 01:22:07,546 - INFO -   Trainable Parameters: 5,056,801
+2026-05-22 01:22:07,563 - INFO -   GPU Memory Reserved:  0.77 GB
+2026-05-22 01:22:07,563 - INFO -   GPU Memory Allocated: 0.59 GB
+2026-05-22 01:22:07,563 - INFO -   GPU Memory Peak:      0.59 GB
+2026-05-22 01:22:07,563 - INFO - Epoch 1/30
+2026-05-22 01:22:14,164 - INFO - [TRAIN] Epoch 1: Loss = 5.923944 (Time: 6.60s)
+2026-05-22 01:22:14,179 - INFO - [VRAM] Peak: 0.70GB | Reserved: 0.82GB
+2026-05-22 01:22:14,179 - INFO - Epoch 2/30
+2026-05-22 01:22:20,401 - INFO - [TRAIN] Epoch 2: Loss = 5.812930 (Time: 6.22s)
+2026-05-22 01:22:20,417 - INFO - [VRAM] Peak: 0.70GB | Reserved: 0.82GB
+2026-05-22 01:22:20,417 - INFO - Epoch 3/30
+2026-05-22 01:22:27,304 - INFO - [TRAIN] Epoch 3: Loss = 5.769310 (Time: 6.89s)
+2026-05-22 01:22:27,321 - INFO - [VRAM] Peak: 0.70GB | Reserved: 0.82GB
+2026-05-22 01:22:27,321 - INFO - Epoch 4/30
+2026-05-22 01:22:34,122 - INFO - [TRAIN] Epoch 4: Loss = 5.742529 (Time: 6.80s)
+2026-05-22 01:22:34,166 - INFO - [VRAM] Peak: 0.70GB | Reserved: 0.82GB
+2026-05-22 01:22:34,166 - INFO - Epoch 5/30
+2026-05-22 01:22:40,875 - INFO - [TRAIN] Epoch 5: Loss = 5.721124 (Time: 6.71s)
+2026-05-22 01:22:40,891 - INFO - [VRAM] Peak: 0.70GB | Reserved: 0.82GB
+2026-05-22 01:22:40,891 - INFO - [VALIDATION] Epoch 5
