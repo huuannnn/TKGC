@@ -2,3 +2,5 @@ numpy
 PyYAML
 scipy
 tqdm
+lightning
+matplotlib
