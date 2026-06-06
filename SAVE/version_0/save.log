@@ -1,0 +1,45 @@
+[2026-06-06 09:31:03.400] SETUP : ========== CONFIG ==========
+[2026-06-06 09:31:03.400] SETUP : [Model Config]
+[2026-06-06 09:31:03.401] SETUP :   embedding_dim: 32
+[2026-06-06 09:31:03.401] SETUP :   dropout: 0.5
+[2026-06-06 09:31:03.401] SETUP : [Training Config]
+[2026-06-06 09:31:03.402] SETUP :   dataset_name: YAGO
+[2026-06-06 09:31:03.402] SETUP :   batch_size: 1
+[2026-06-06 09:31:03.403] SETUP :   max_epochs: 10
+[2026-06-06 09:31:03.403] SETUP :   lr: 0.001
+[2026-06-06 09:31:03.403] SETUP :   weight_decay: 1e-05
+[2026-06-06 09:31:03.404] SETUP :   save_dir: SAVE
+[2026-06-06 09:31:03.404] SETUP : [Dataset Config]
+[2026-06-06 09:31:03.405] SETUP :   dataset: YAGO
+[2026-06-06 09:31:03.405] SETUP :   history_len: 5
+[2026-06-06 09:31:03.405] SETUP :   dilate_len: 1
+[2026-06-06 09:31:03.406] SETUP :   add_inverse: True
+[2026-06-06 09:31:03.406] SETUP : ============================
+[2026-06-06 09:31:03.407] SAVE  : Config saved to SAVE/version_0/config.yaml
+[2026-06-06 09:31:03.407] INFO  : Number of trainable parameters: 171,775
+[2026-06-06 09:31:03.408] SETUP : [Efficiency Stats]
+[2026-06-06 09:31:03.412] SETUP :   Peak VRAM (single batch): 0.0621 GB
+[2026-06-06 09:31:03.470] SETUP :   FLOPs (single forward pass): 1.4986 GFLOPs
+[2026-06-06 09:31:06.223] TRAIN : Epoch 1 | Loss = 2.099761 | Time = 2.75s
+[2026-06-06 09:31:06.225] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:09.072] TRAIN : Epoch 2 | Loss = 1.680313 | Time = 2.85s
+[2026-06-06 09:31:09.074] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:11.955] TRAIN : Epoch 3 | Loss = 1.607646 | Time = 2.88s
+[2026-06-06 09:31:11.956] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:14.931] TRAIN : Epoch 4 | Loss = 1.573575 | Time = 2.97s
+[2026-06-06 09:31:14.932] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:17.712] TRAIN : Epoch 5 | Loss = 1.553427 | Time = 2.78s
+[2026-06-06 09:31:17.713] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:20.681] TRAIN : Epoch 6 | Loss = 1.521394 | Time = 2.97s
+[2026-06-06 09:31:20.683] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:23.611] TRAIN : Epoch 7 | Loss = 1.504792 | Time = 2.93s
+[2026-06-06 09:31:23.613] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:26.592] TRAIN : Epoch 8 | Loss = 1.496933 | Time = 2.98s
+[2026-06-06 09:31:26.593] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:29.468] TRAIN : Epoch 9 | Loss = 1.495673 | Time = 2.87s
+[2026-06-06 09:31:29.469] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:32.244] TRAIN : Epoch 10 | Loss = 1.483879 | Time = 2.77s
+[2026-06-06 09:31:32.245] VRAM  : Train Peak VRAM: 1.6197 GB | Train Reserved VRAM: 6.4823 GB
+[2026-06-06 09:31:32.266] SAVE  : Checkpoint saved to SAVE/version_0/chkpt/final.pt
+[2026-06-06 09:31:32.267] DONE  : Training completed!
+[2026-06-06 09:31:32.268] INFO  : Avg Train Loss: 1.601739 | Avg Train Time: 2.88s
