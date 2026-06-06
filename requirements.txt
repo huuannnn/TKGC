@@ -1,6 +1,5 @@
-numpy
-PyYAML
+loguru
 scipy
+torch_geometric
 tqdm
-lightning
 matplotlib
