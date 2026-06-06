@@ -1,0 +1,33 @@
+[2026-06-06 15:12:56.221] SETUP : ========== CONFIG ==========
+[2026-06-06 15:12:56.222] SETUP : [Model Config]
+[2026-06-06 15:12:56.223] SETUP :   embedding_dim: 64
+[2026-06-06 15:12:56.223] SETUP :   dropout: 0.5
+[2026-06-06 15:12:56.224] SETUP : [Training Config]
+[2026-06-06 15:12:56.224] SETUP :   dataset_name: YAGO
+[2026-06-06 15:12:56.225] SETUP :   batch_size: 1
+[2026-06-06 15:12:56.226] SETUP :   max_epochs: 100
+[2026-06-06 15:12:56.226] SETUP :   lr: 0.001
+[2026-06-06 15:12:56.227] SETUP :   weight_decay: 1e-05
+[2026-06-06 15:12:56.227] SETUP :   save_dir: SAVE
+[2026-06-06 15:12:56.228] SETUP :   patience: 10
+[2026-06-06 15:12:56.228] SETUP :   min_delta: 0.0001
+[2026-06-06 15:12:56.229] SETUP :   lr_patience: 5
+[2026-06-06 15:12:56.229] SETUP :   lr_factor: 0.1
+[2026-06-06 15:12:56.230] SETUP :   min_lr: 1e-06
+[2026-06-06 15:12:56.231] SETUP : [Dataset Config]
+[2026-06-06 15:12:56.231] SETUP :   dataset: YAGO
+[2026-06-06 15:12:56.232] SETUP :   history_len: 3
+[2026-06-06 15:12:56.232] SETUP :   dilate_len: 1
+[2026-06-06 15:12:56.232] SETUP :   add_inverse: True
+[2026-06-06 15:12:56.233] SETUP : ============================
+[2026-06-06 15:12:56.233] SAVE  : Config saved to SAVE/version_8/config.yaml
+[2026-06-06 15:12:56.234] INFO  : Number of trainable parameters: 1,374,691
+[2026-06-06 15:12:56.235] SETUP : [Efficiency Stats]
+[2026-06-06 15:12:56.256] SETUP :   Peak VRAM (single batch): 0.0698 GB
+[2026-06-06 15:12:56.325] SETUP :   FLOPs (single forward pass): 8.0625 GFLOPs
+[2026-06-06 15:12:56.326] INFO  : Starting training for 100 epochs on device: cuda
+[2026-06-06 15:13:04.770] TRAIN : Epoch 1 | Loss = 2.002890 | Time = 8.44s
+[2026-06-06 15:13:04.862] VAL   : Epoch 1 | Loss = 1.838449 | Time = 0.09s
+[2026-06-06 15:13:04.863] VRAM  : Train Peak VRAM: 2.2989 GB | Train Reserved VRAM: 2.6047 GB
+[2026-06-06 15:13:04.864] VRAM  : Validation Peak VRAM: 0.7294 GB | Validation Reserved VRAM: 2.6047 GB
+[2026-06-06 15:13:04.896] SAVE  : Checkpoint saved to SAVE/version_8/chkpt/best.pt

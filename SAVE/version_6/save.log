@@ -1,0 +1,28 @@
+[2026-06-06 14:58:32.035] SETUP : ========== CONFIG ==========
+[2026-06-06 14:58:32.036] SETUP : [Model Config]
+[2026-06-06 14:58:32.036] SETUP :   embedding_dim: 64
+[2026-06-06 14:58:32.037] SETUP :   dropout: 0.5
+[2026-06-06 14:58:32.037] SETUP : [Training Config]
+[2026-06-06 14:58:32.038] SETUP :   dataset_name: YAGO
+[2026-06-06 14:58:32.038] SETUP :   batch_size: 1
+[2026-06-06 14:58:32.038] SETUP :   max_epochs: 100
+[2026-06-06 14:58:32.039] SETUP :   lr: 0.001
+[2026-06-06 14:58:32.039] SETUP :   weight_decay: 1e-05
+[2026-06-06 14:58:32.039] SETUP :   save_dir: SAVE
+[2026-06-06 14:58:32.039] SETUP :   patience: 10
+[2026-06-06 14:58:32.040] SETUP :   min_delta: 0.0001
+[2026-06-06 14:58:32.040] SETUP :   lr_patience: 5
+[2026-06-06 14:58:32.040] SETUP :   lr_factor: 0.1
+[2026-06-06 14:58:32.041] SETUP :   min_lr: 1e-06
+[2026-06-06 14:58:32.041] SETUP : [Dataset Config]
+[2026-06-06 14:58:32.041] SETUP :   dataset: YAGO
+[2026-06-06 14:58:32.041] SETUP :   history_len: 3
+[2026-06-06 14:58:32.042] SETUP :   dilate_len: 1
+[2026-06-06 14:58:32.042] SETUP :   add_inverse: True
+[2026-06-06 14:58:32.043] SETUP : ============================
+[2026-06-06 14:58:32.043] SAVE  : Config saved to SAVE/version_6/config.yaml
+[2026-06-06 14:58:32.043] INFO  : Number of trainable parameters: 1,374,691
+[2026-06-06 14:58:32.044] SETUP : [Efficiency Stats]
+[2026-06-06 14:58:32.062] SETUP :   Peak VRAM (single batch): 0.2224 GB
+[2026-06-06 14:58:32.126] SETUP :   FLOPs (single forward pass): 1.7731 GFLOPs
+[2026-06-06 14:58:32.127] INFO  : Starting training for 100 epochs on device: cuda

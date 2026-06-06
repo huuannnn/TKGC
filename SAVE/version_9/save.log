@@ -1,0 +1,141 @@
+[2026-06-06 15:13:53.223] SETUP : ========== CONFIG ==========
+[2026-06-06 15:13:53.223] SETUP : [Model Config]
+[2026-06-06 15:13:53.224] SETUP :   embedding_dim: 64
+[2026-06-06 15:13:53.224] SETUP :   dropout: 0.5
+[2026-06-06 15:13:53.225] SETUP : [Training Config]
+[2026-06-06 15:13:53.225] SETUP :   dataset_name: YAGO
+[2026-06-06 15:13:53.225] SETUP :   batch_size: 1
+[2026-06-06 15:13:53.226] SETUP :   max_epochs: 100
+[2026-06-06 15:13:53.226] SETUP :   lr: 0.001
+[2026-06-06 15:13:53.227] SETUP :   weight_decay: 1e-05
+[2026-06-06 15:13:53.227] SETUP :   save_dir: SAVE
+[2026-06-06 15:13:53.227] SETUP :   patience: 10
+[2026-06-06 15:13:53.228] SETUP :   min_delta: 0.0001
+[2026-06-06 15:13:53.228] SETUP :   lr_patience: 5
+[2026-06-06 15:13:53.229] SETUP :   lr_factor: 0.1
+[2026-06-06 15:13:53.229] SETUP :   min_lr: 1e-06
+[2026-06-06 15:13:53.229] SETUP : [Dataset Config]
+[2026-06-06 15:13:53.230] SETUP :   dataset: YAGO
+[2026-06-06 15:13:53.230] SETUP :   history_len: 3
+[2026-06-06 15:13:53.230] SETUP :   dilate_len: 1
+[2026-06-06 15:13:53.233] SETUP :   add_inverse: True
+[2026-06-06 15:13:53.233] SETUP : ============================
+[2026-06-06 15:13:53.234] SAVE  : Config saved to SAVE/version_9/config.yaml
+[2026-06-06 15:13:53.234] INFO  : Number of trainable parameters: 1,374,691
+[2026-06-06 15:13:53.235] SETUP : [Efficiency Stats]
+[2026-06-06 15:13:53.591] SETUP :   Peak VRAM (single batch): 0.0871 GB
+[2026-06-06 15:13:53.735] SETUP :   FLOPs (single forward pass): 1.4293 GFLOPs
+[2026-06-06 15:13:53.736] INFO  : Starting training for 100 epochs on device: cuda
+[2026-06-06 15:14:02.696] TRAIN : Epoch 1 | Loss = 2.073487 | Time = 8.96s
+[2026-06-06 15:14:02.870] VAL   : Epoch 1 | Loss = 1.907861 | Time = 0.17s
+[2026-06-06 15:14:02.871] VRAM  : Train Peak VRAM: 2.2964 GB | Reserved VRAM: 2.5585 GB
+[2026-06-06 15:14:02.871] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 1.0507 GB
+[2026-06-06 15:14:02.899] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:11.374] TRAIN : Epoch 2 | Loss = 1.026805 | Time = 8.47s
+[2026-06-06 15:14:11.465] VAL   : Epoch 2 | Loss = 1.441541 | Time = 0.09s
+[2026-06-06 15:14:11.466] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6214 GB
+[2026-06-06 15:14:11.467] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6214 GB
+[2026-06-06 15:14:11.514] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:19.948] TRAIN : Epoch 3 | Loss = 0.679991 | Time = 8.43s
+[2026-06-06 15:14:20.037] VAL   : Epoch 3 | Loss = 1.269198 | Time = 0.09s
+[2026-06-06 15:14:20.038] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:20.038] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:20.066] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:28.503] TRAIN : Epoch 4 | Loss = 0.581442 | Time = 8.43s
+[2026-06-06 15:14:28.592] VAL   : Epoch 4 | Loss = 1.164525 | Time = 0.09s
+[2026-06-06 15:14:28.594] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:28.594] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:28.628] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:37.055] TRAIN : Epoch 5 | Loss = 0.534253 | Time = 8.43s
+[2026-06-06 15:14:37.145] VAL   : Epoch 5 | Loss = 1.109309 | Time = 0.09s
+[2026-06-06 15:14:37.146] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:37.147] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:37.168] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:45.609] TRAIN : Epoch 6 | Loss = 0.506303 | Time = 8.44s
+[2026-06-06 15:14:45.700] VAL   : Epoch 6 | Loss = 1.057462 | Time = 0.09s
+[2026-06-06 15:14:45.701] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:45.702] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:45.735] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:14:54.188] TRAIN : Epoch 7 | Loss = 0.486643 | Time = 8.45s
+[2026-06-06 15:14:54.278] VAL   : Epoch 7 | Loss = 1.053873 | Time = 0.09s
+[2026-06-06 15:14:54.280] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:54.280] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:14:54.326] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:15:02.768] TRAIN : Epoch 8 | Loss = 0.469506 | Time = 8.44s
+[2026-06-06 15:15:02.857] VAL   : Epoch 8 | Loss = 1.038508 | Time = 0.09s
+[2026-06-06 15:15:02.858] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:02.859] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:02.885] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:15:11.306] TRAIN : Epoch 9 | Loss = 0.457805 | Time = 8.42s
+[2026-06-06 15:15:11.395] VAL   : Epoch 9 | Loss = 1.061463 | Time = 0.09s
+[2026-06-06 15:15:11.396] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:11.396] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:19.821] TRAIN : Epoch 10 | Loss = 0.447343 | Time = 8.42s
+[2026-06-06 15:15:19.912] VAL   : Epoch 10 | Loss = 1.034484 | Time = 0.09s
+[2026-06-06 15:15:19.913] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:19.914] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:19.941] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:15:28.367] TRAIN : Epoch 11 | Loss = 0.440141 | Time = 8.43s
+[2026-06-06 15:15:28.457] VAL   : Epoch 11 | Loss = 1.028132 | Time = 0.09s
+[2026-06-06 15:15:28.458] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:28.459] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:28.491] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:15:36.921] TRAIN : Epoch 12 | Loss = 0.431139 | Time = 8.43s
+[2026-06-06 15:15:37.011] VAL   : Epoch 12 | Loss = 1.038780 | Time = 0.09s
+[2026-06-06 15:15:37.012] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:37.013] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:45.507] TRAIN : Epoch 13 | Loss = 0.425718 | Time = 8.49s
+[2026-06-06 15:15:45.599] VAL   : Epoch 13 | Loss = 1.008670 | Time = 0.09s
+[2026-06-06 15:15:45.602] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:45.602] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:45.651] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/best.pt
+[2026-06-06 15:15:54.104] TRAIN : Epoch 14 | Loss = 0.420399 | Time = 8.45s
+[2026-06-06 15:15:54.194] VAL   : Epoch 14 | Loss = 1.012564 | Time = 0.09s
+[2026-06-06 15:15:54.195] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:15:54.195] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:02.631] TRAIN : Epoch 15 | Loss = 0.414177 | Time = 8.43s
+[2026-06-06 15:16:02.720] VAL   : Epoch 15 | Loss = 1.046565 | Time = 0.09s
+[2026-06-06 15:16:02.722] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:02.722] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:11.250] TRAIN : Epoch 16 | Loss = 0.408582 | Time = 8.53s
+[2026-06-06 15:16:11.340] VAL   : Epoch 16 | Loss = 1.020479 | Time = 0.09s
+[2026-06-06 15:16:11.341] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:11.341] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:19.780] TRAIN : Epoch 17 | Loss = 0.404582 | Time = 8.44s
+[2026-06-06 15:16:19.871] VAL   : Epoch 17 | Loss = 1.017437 | Time = 0.09s
+[2026-06-06 15:16:19.873] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:19.873] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:28.318] TRAIN : Epoch 18 | Loss = 0.398459 | Time = 8.44s
+[2026-06-06 15:16:28.410] VAL   : Epoch 18 | Loss = 1.030824 | Time = 0.09s
+[2026-06-06 15:16:28.411] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:28.412] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:36.840] TRAIN : Epoch 19 | Loss = 0.395145 | Time = 8.43s
+[2026-06-06 15:16:36.930] VAL   : Epoch 19 | Loss = 1.028880 | Time = 0.09s
+[2026-06-06 15:16:36.931] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:36.932] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:36.932] INFO  : Learning rate reduced: 0.001 -> 0.0001
+[2026-06-06 15:16:45.377] TRAIN : Epoch 20 | Loss = 0.378605 | Time = 8.44s
+[2026-06-06 15:16:45.467] VAL   : Epoch 20 | Loss = 1.036400 | Time = 0.09s
+[2026-06-06 15:16:45.468] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:45.468] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:53.884] TRAIN : Epoch 21 | Loss = 0.373189 | Time = 8.42s
+[2026-06-06 15:16:53.975] VAL   : Epoch 21 | Loss = 1.041628 | Time = 0.09s
+[2026-06-06 15:16:53.976] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:16:53.977] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:17:02.428] TRAIN : Epoch 22 | Loss = 0.370501 | Time = 8.45s
+[2026-06-06 15:17:02.518] VAL   : Epoch 22 | Loss = 1.058748 | Time = 0.09s
+[2026-06-06 15:17:02.519] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:17:02.520] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:17:10.963] TRAIN : Epoch 23 | Loss = 0.367833 | Time = 8.44s
+[2026-06-06 15:17:11.053] VAL   : Epoch 23 | Loss = 1.069960 | Time = 0.09s
+[2026-06-06 15:17:11.054] VRAM  : Train Peak VRAM: 2.2945 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:17:11.055] VRAM  : Validation Peak VRAM: 0.7239 GB | Reserved VRAM: 2.6235 GB
+[2026-06-06 15:17:11.055] INFO  : Stopped at epoch 23 | Best Val Loss: 1.008670 | No improvement for 10 epochs | Elapsed Time: 197.32s
+[2026-06-06 15:17:11.081] SAVE  : Checkpoint saved to SAVE/version_9/chkpt/final.pt
+[2026-06-06 15:17:11.082] DONE  : Training completed!
+[2026-06-06 15:17:11.083] INFO  : Avg Train Loss: 0.543133 | Avg Train Time: 8.47s
+[2026-06-06 15:17:11.084] INFO  : Avg Val Loss: 1.112056 | Avg Val Time: 0.09s
+[2026-06-06 15:20:33.062] TEST  : Ranking test completed in 201.35s
+[2026-06-06 15:20:33.063] TEST  : Entity Filter MRR: 0.664012 | Hits@1: 0.603029 | Hits@3: 0.694858 | Hits@10: 0.773960
+[2026-06-06 15:20:33.064] TEST  : Relation Filter MRR: 0.987783 | Hits@1: 0.982118 | Hits@3: 0.992236 | Hits@10: 0.997264
+[2026-06-06 15:20:33.064] VRAM  : Test Peak VRAM: 1.4931 GB | Reserved VRAM: 3.3093 GB
